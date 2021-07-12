@@ -20,6 +20,8 @@ class CreateMensagemsTable extends Migration
             $table->string('email');
             $table->string('instituicao');
             $table->longText('mensagem');
+            $table->integer('homenageado_id')->unsigned();
+            $table->foreign('homenageado_id')->references('id')->on('homenageado');
         });
     }
 

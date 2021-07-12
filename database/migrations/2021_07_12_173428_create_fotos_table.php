@@ -18,6 +18,8 @@ class CreateFotosTable extends Migration
             $table->timestamps();
             $table->text('descricao');
             $table->string('caminho');
+            $table->integer('homenageado_id')->unsigned();
+            $table->foreign('homenageado_id')->references('id')->on('homenageado');
         });
     }
 
