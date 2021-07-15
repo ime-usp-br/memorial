@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomenageadoController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index']);
+Route::resource('/homenageados',HomenageadoController::class);
+
+// Rotas para login
+Route::get('login',[LoginController::class, 'redirectToProvider'])->name('login');
+Route::get('callback', [LoginController::class, 'handleProviderCallback']);
+Route::post('logout',[LoginController::class, 'logout'])->name('logout');
+
