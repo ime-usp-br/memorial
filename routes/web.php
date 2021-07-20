@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FotoController;
 use App\Http\Controllers\HomenageadoController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,7 @@ use App\Http\Controllers\LoginController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::resource('/homenageados',HomenageadoController::class);
+Route::resource('/fotos', FotoController::class);
 
 // Rotas para login
 Route::get('login',[LoginController::class, 'redirectToProvider'])->name('login');

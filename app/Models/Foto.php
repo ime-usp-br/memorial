@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Foto extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function homenageado(){
+        return $this->belongsTo('App\Models\Homenageado');
+    }
 }

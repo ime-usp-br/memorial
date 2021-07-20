@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
 {
@@ -14,7 +15,7 @@ class FotoController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -24,7 +25,10 @@ class FotoController extends Controller
      */
     public function create()
     {
-        //
+        $foto = new Foto();
+        return view('fotos.create', [
+            'foto' => $foto
+        ]);
     }
 
     /**
@@ -35,7 +39,18 @@ class FotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'homenageado_id' => 'required|integer|exists:homenageados,id',
+            'foto' => 'required|file|image|'
+        ]);
+        
+        $foto = [];
+        $foto['homenageado_id'] = $request->homenageado_id;
+        $foto['caminho'] = $request->file('foto')->store('.');
+        $foto['descricao'] = $request->desc;
+        $foto['foto_perfil'] = false;
+        $foto = Foto::create($foto);
+        return back();
     }
 
     /**
@@ -46,7 +61,7 @@ class FotoController extends Controller
      */
     public function show(Foto $foto)
     {
-        //
+        return Storage::download($foto->caminho, null, [$foto->descricao]);
     }
 
     /**
@@ -57,7 +72,7 @@ class FotoController extends Controller
      */
     public function edit(Foto $foto)
     {
-        //
+        
     }
 
     /**

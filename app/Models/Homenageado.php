@@ -16,4 +16,13 @@ class Homenageado extends Model
         $homenageado->data_falecimento = Carbon::parse($homenageado->data_falecimento)->format('d/m/Y');
         return $homenageado;
     }
+
+    public function fotoPerfil($id){
+        return Foto::select('fotos.id')->where('fotos.homenageado_id',$id)->where('fotos.foto_perfil',true)->get()[0];
+    }
+
+    public function fotos()
+    {
+        return $this->hasMany('App\Models\Foto');
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFotosTable extends Migration
+class AddColumnHomenageadoId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateFotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('fotos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->text('descricao');
-            $table->string('caminho');
+        Schema::table('fotos', function (Blueprint $table) {
+            $table->integer('homenageado_id');
+            $table->foreign('homenageado_id')->references('id')->on('homenageados');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fotos');
+        Schema::table('fotos', function (Blueprint $table) {
+            //
+        });
     }
 }
