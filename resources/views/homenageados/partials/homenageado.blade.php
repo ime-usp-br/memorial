@@ -1,4 +1,4 @@
-<img src="/fotos/{{$fotoPerfil->id}}"> <br>
+<img width="500px" src="/fotos/{{$fotoPerfil->id}}"> <br>
 
 Nome: {{$homenageado->nome}} <br>
 Data de Nasciemento: {{$homenageado->data_nascimento}} <br>

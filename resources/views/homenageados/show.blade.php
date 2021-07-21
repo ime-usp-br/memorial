@@ -1,12 +1,15 @@
 @include('homenageados.partials.homenageado') <br>
 
-@include('fotos.partials.forms')
-<br><br>
+@if(Auth::user() != null)
+  <a href="{{'/fotos/create/'.$homenageado->id}}">Adicionar fotos</a>
+  <br><br>
+@endif
 
 
 @foreach($homenageado->fotos as $foto)
-  <img src="/fotos/{{$foto->id}}"> <br>
-  {{$foto->descricao}} <br>
+  @if(!$foto->foto_perfil)
+    @include('fotos.partials.fields') <br>
+  @endif
 @endforeach
 
 

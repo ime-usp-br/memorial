@@ -20,6 +20,7 @@ use App\Http\Controllers\LoginController;
 Route::get('/', [IndexController::class, 'index']);
 Route::resource('/homenageados',HomenageadoController::class);
 Route::resource('/fotos', FotoController::class);
+Route::get('/fotos/create/{homenageado_id}', [FotoController::class, 'create']);
 
 // Rotas para login
 Route::get('login',[LoginController::class, 'redirectToProvider'])->name('login');

@@ -23,11 +23,12 @@ class FotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($homenageado_id)
     {
         $foto = new Foto();
         return view('fotos.create', [
-            'foto' => $foto
+            'foto' => $foto,
+            'homenageado_id' => $homenageado_id
         ]);
     }
 
@@ -50,7 +51,7 @@ class FotoController extends Controller
         $foto['descricao'] = $request->desc;
         $foto['foto_perfil'] = false;
         $foto = Foto::create($foto);
-        return back();
+        return redirect("/homenageados/$foto->homenageado_id");
     }
 
     /**
@@ -72,7 +73,10 @@ class FotoController extends Controller
      */
     public function edit(Foto $foto)
     {
-        
+        return view('fotos.edit', [
+            'foto' => $foto,
+            'homenageado_id' => $foto->homenageado_id
+        ]);
     }
 
     /**
@@ -84,7 +88,13 @@ class FotoController extends Controller
      */
     public function update(Request $request, Foto $foto)
     {
-        //
+        $newFoto = [];
+        $newFoto['caminho'] = $request->file('foto')->store('.');
+        $newFoto['homenageado_id'] = $request->homenageado_id;
+        $newFoto['descricao'] = $request->desc;
+        $newFoto['foto_perfil'] = false;
+        $foto->update($newFoto);
+        return redirect("/homenageados/$foto->homenageado_id");
     }
 
     /**
@@ -95,6 +105,9 @@ class FotoController extends Controller
      */
     public function destroy(Foto $foto)
     {
-        //
+        $homenageado_id = $foto->homenageado_id;
+        Storage::delete($foto->caminho);
+        $foto->delete();
+        return redirect("/homenageados/$homenageado_id");
     }
 }

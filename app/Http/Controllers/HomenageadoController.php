@@ -129,6 +129,7 @@ class HomenageadoController extends Controller
      */
     public function destroy(Homenageado $homenageado)
     {
+        $homenageado->fotos()->delete();
         $homenageado->delete();
         return redirect("/");
     }
