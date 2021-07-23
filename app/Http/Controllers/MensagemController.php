@@ -22,9 +22,13 @@ class MensagemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $msg = new Mensagem;
+        return view('mensagens.create', [
+            'mensagem' => $msg,
+            'homenageado_id' => $id
+        ]);
     }
 
     /**
@@ -35,7 +39,14 @@ class MensagemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $msg = [];
+        $msg['nome'] = $request->nome;
+        $msg['email'] = $request->email;
+        $msg['instituicao'] = $request->instituicao;
+        $msg['mensagem'] = $request->msg;
+        $msg['homenageado_id'] = $request->homenageado_id;
+        $msg = Mensagem::create($msg);
+        return redirect("/homenageados/$msg->homenageado_id");
     }
 
     /**
@@ -46,7 +57,9 @@ class MensagemController extends Controller
      */
     public function show(Mensagem $mensagem)
     {
-        //
+        return view('mensagens.show', [
+            'mensagem' => $mensagem
+        ]);
     }
 
     /**
@@ -57,7 +70,10 @@ class MensagemController extends Controller
      */
     public function edit(Mensagem $mensagem)
     {
-        //
+        return view('mensagens.edit', [
+            'mensagem' => $mensagem,
+            'homenageado_id' => $mensagem->homenageado_id
+        ]);
     }
 
     /**
@@ -69,7 +85,14 @@ class MensagemController extends Controller
      */
     public function update(Request $request, Mensagem $mensagem)
     {
-        //
+        $novaMsg = [];
+        $novaMsg['nome'] = $request->nome;
+        $novaMsg['email'] = $request->email;
+        $novaMsg['instituicao'] = $request->instituicao;
+        $novaMsg['mensagem'] = $request->msg;
+        $novaMsg['homenageado_id'] = $request->homenageado_id;
+        $mensagem->update($novaMsg);
+        return redirect("/homenageados/$mensagem->homenageado_id");
     }
 
     /**
@@ -80,6 +103,8 @@ class MensagemController extends Controller
      */
     public function destroy(Mensagem $mensagem)
     {
-        //
+        $homenageado_id = $mensagem->homenageado_id;
+        $mensagem->delete();
+        return redirect("/homenageados/$homenageado_id");
     }
 }

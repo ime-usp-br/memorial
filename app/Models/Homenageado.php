@@ -25,4 +25,9 @@ class Homenageado extends Model
     {
         return $this->hasMany('App\Models\Foto');
     }
+
+    public function mensagens()
+    {
+        return $this->hasMany('App\Models\Mensagem');
+    }
 }

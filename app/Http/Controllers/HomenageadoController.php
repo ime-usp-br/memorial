@@ -6,7 +6,7 @@ use App\Models\Foto;
 use App\Models\Homenageado;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 class HomenageadoController extends Controller
 {
@@ -113,6 +113,8 @@ class HomenageadoController extends Controller
         $novaFotoPerfil['homenageado_id'] = $homenageado->id;
         $novaFotoPerfil['caminho'] = $request->file('foto')->store('.');
         $novaFotoPerfil['foto_perfil'] = true;
+        // deletar foto de perfil antiga
+        Storage::delete($fotoPerfil->caminho);
         $fotoPerfil->update($novaFotoPerfil);
 
         $updateHomenageado['foto_perfil'] = $fotoPerfil->id;
@@ -130,6 +132,7 @@ class HomenageadoController extends Controller
     public function destroy(Homenageado $homenageado)
     {
         $homenageado->fotos()->delete();
+        $homenageado->mensagens()->delete();
         $homenageado->delete();
         return redirect("/");
     }

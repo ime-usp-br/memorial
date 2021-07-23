@@ -93,6 +93,10 @@ class FotoController extends Controller
         $newFoto['homenageado_id'] = $request->homenageado_id;
         $newFoto['descricao'] = $request->desc;
         $newFoto['foto_perfil'] = false;
+        
+        //deletar a foto antiga 
+        Storage::delete($foto->caminho);
+
         $foto->update($newFoto);
         return redirect("/homenageados/$foto->homenageado_id");
     }
