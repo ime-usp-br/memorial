@@ -57,7 +57,7 @@ class HomenageadoController extends Controller
         $foto_perfil = [];
         $foto_perfil['homenageado_id'] = $homenageado->id;
         if($request->foto_perfil != null) $foto_perfil['caminho'] = $request->file('foto_perfil')->store('.');
-        else $foto_perfil['caminho'] = './sem_imagem.jpg';
+        else $foto_perfil['caminho'] = '';
         $foto_perfil['foto_perfil'] = true;
         $foto_perfil = Foto::create($foto_perfil);
         
@@ -117,8 +117,8 @@ class HomenageadoController extends Controller
         $novaFotoPerfil['homenageado_id'] = $homenageado->id;
         if($request->foto_perfil != null){
             $novaFotoPerfil['caminho'] = $request->file('foto_perfil')->store('.');
-            if($fotoPerfil->caminho != './sem_imagem.jpg') Storage::delete($fotoPerfil->caminho); // deletar foto de perfil antiga
-        } 
+            Storage::delete($fotoPerfil->caminho); // deletar foto de perfil antiga
+        }
         else $novaFotoPerfil['caminho'] = $fotoPerfil->caminho; 
         
         $fotoPerfil->update($novaFotoPerfil);
@@ -136,7 +136,7 @@ class HomenageadoController extends Controller
     public function destroy(Homenageado $homenageado)
     {
         foreach($homenageado->fotos as $foto){
-            if($foto->caminho != './sem_image.jpg') Storage::delete($foto->caminho);
+            Storage::delete($foto->caminho);
         }
         $homenageado->fotos()->delete();
         $homenageado->mensagens()->delete();

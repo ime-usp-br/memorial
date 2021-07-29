@@ -1,6 +1,4 @@
-@if($fotoPerfil != null)
-    <img width="500px" src="/fotos/{{$fotoPerfil->id}}"> <br>
-@endif
+<img width="500px" src="/fotos/{{$fotoPerfil->id}}"> <br>
 
 Nome: {{$homenageado->nome}} <br>
 Data de Nasciemento: {{$homenageado->data_nascimento}} <br>
