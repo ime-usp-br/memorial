@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\FotoController;
+use App\Http\Controllers\HomenageadoController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MensagemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index']);
+Route::resource('/homenageados',HomenageadoController::class);
+Route::resource('/fotos', FotoController::class);
+Route::get('/fotos/create/{homenageado_id}', [FotoController::class, 'create']);
+Route::resource('/mensagems', MensagemController::class);
+Route::get('/mensagems/create/{homenageado_id}', [MensagemController::class, 'create']);
+
+// Rotas para login
+Route::get('login',[LoginController::class, 'redirectToProvider'])->name('login');
+Route::get('callback', [LoginController::class, 'handleProviderCallback']);
+Route::post('logout',[LoginController::class, 'logout'])->name('logout');
+

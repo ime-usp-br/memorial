@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FotoRequest;
 use App\Models\Foto;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
 {
@@ -14,7 +15,7 @@ class FotoController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -22,9 +23,13 @@ class FotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($homenageado_id)
     {
-        //
+        $foto = new Foto();
+        return view('fotos.create', [
+            'foto' => $foto,
+            'homenageado_id' => $homenageado_id
+        ]);
     }
 
     /**
@@ -33,9 +38,13 @@ class FotoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FotoRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['caminho'] = $request->file('foto')->store('.');
+        $validated['foto_perfil'] = false;
+        $foto = Foto::create($validated);
+        return redirect("/homenageados/$foto->homenageado_id");
     }
 
     /**
@@ -46,7 +55,7 @@ class FotoController extends Controller
      */
     public function show(Foto $foto)
     {
-        //
+        return Storage::download($foto->caminho, null, [$foto->descricao]);
     }
 
     /**
@@ -57,7 +66,10 @@ class FotoController extends Controller
      */
     public function edit(Foto $foto)
     {
-        //
+        return view('fotos.edit', [
+            'foto' => $foto,
+            'homenageado_id' => $foto->homenageado_id
+        ]);
     }
 
     /**
@@ -67,9 +79,17 @@ class FotoController extends Controller
      * @param  \App\Models\Foto  $foto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Foto $foto)
+    public function update(FotoRequest $request, Foto $foto)
     {
-        //
+        $validated = $request->validated();
+        $validated['caminho'] = $request->file('foto')->store('.');
+        $validated['foto_perfil'] = false;
+        
+        //deletar a foto antiga 
+        Storage::delete($foto->caminho);
+
+        $foto->update($validated);
+        return redirect("/homenageados/$foto->homenageado_id");
     }
 
     /**
@@ -80,6 +100,9 @@ class FotoController extends Controller
      */
     public function destroy(Foto $foto)
     {
-        //
+        $homenageado_id = $foto->homenageado_id;
+        Storage::delete($foto->caminho);
+        $foto->delete();
+        return redirect("/homenageados/$homenageado_id");
     }
 }

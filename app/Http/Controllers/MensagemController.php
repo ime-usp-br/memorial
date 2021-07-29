@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MensagemRequest;
 use App\Models\Mensagem;
-use Illuminate\Http\Request;
 
 class MensagemController extends Controller
 {
@@ -22,9 +22,13 @@ class MensagemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $msg = new Mensagem;
+        return view('mensagens.create', [
+            'mensagem' => $msg,
+            'homenageado_id' => $id
+        ]);
     }
 
     /**
@@ -33,9 +37,12 @@ class MensagemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MensagemRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $msg = Mensagem::create($validated);
+        request()->session()->flash('Mensagem criada com sucesso!');
+        return redirect("/homenageados/$msg->homenageado_id");
     }
 
     /**
@@ -46,7 +53,9 @@ class MensagemController extends Controller
      */
     public function show(Mensagem $mensagem)
     {
-        //
+        return view('mensagens.show', [
+            'mensagem' => $mensagem
+        ]);
     }
 
     /**
@@ -57,7 +66,10 @@ class MensagemController extends Controller
      */
     public function edit(Mensagem $mensagem)
     {
-        //
+        return view('mensagens.edit', [
+            'mensagem' => $mensagem,
+            'homenageado_id' => $mensagem->homenageado_id
+        ]);
     }
 
     /**
@@ -67,9 +79,12 @@ class MensagemController extends Controller
      * @param  \App\Models\Mensagem  $mensagem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mensagem $mensagem)
+    public function update(MensagemRequest $request, Mensagem $mensagem)
     {
-        //
+        $validated = $request->validated();
+        $mensagem->update($validated);
+        request()->session()->flash('Mensagem atualizada com sucesso!');
+        return redirect("/homenageados/$mensagem->homenageado_id");
     }
 
     /**
@@ -80,6 +95,8 @@ class MensagemController extends Controller
      */
     public function destroy(Mensagem $mensagem)
     {
-        //
+        $homenageado_id = $mensagem->homenageado_id;
+        $mensagem->delete();
+        return redirect("/homenageados/$homenageado_id");
     }
 }
