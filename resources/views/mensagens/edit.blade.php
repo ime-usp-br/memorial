@@ -1,3 +1,4 @@
+@extends('main')
 <form action="/mensagems/{{$mensagem->id}}" method="POST">
     @csrf
     @method('patch')

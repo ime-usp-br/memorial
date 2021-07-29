@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FotoRequest;
 use App\Models\Foto;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
@@ -38,19 +38,12 @@ class FotoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FotoRequest $request)
     {
-        $request->validate([
-            'homenageado_id' => 'required|integer|exists:homenageados,id',
-            'foto' => 'required|file|image|'
-        ]);
-        
-        $foto = [];
-        $foto['homenageado_id'] = $request->homenageado_id;
-        $foto['caminho'] = $request->file('foto')->store('.');
-        $foto['descricao'] = $request->desc;
-        $foto['foto_perfil'] = false;
-        $foto = Foto::create($foto);
+        $validated = $request->validated();
+        $validated['caminho'] = $request->file('foto')->store('.');
+        $validated['foto_perfil'] = false;
+        $foto = Foto::create($validated);
         return redirect("/homenageados/$foto->homenageado_id");
     }
 
@@ -86,18 +79,16 @@ class FotoController extends Controller
      * @param  \App\Models\Foto  $foto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Foto $foto)
+    public function update(FotoRequest $request, Foto $foto)
     {
-        $newFoto = [];
-        $newFoto['caminho'] = $request->file('foto')->store('.');
-        $newFoto['homenageado_id'] = $request->homenageado_id;
-        $newFoto['descricao'] = $request->desc;
-        $newFoto['foto_perfil'] = false;
+        $validated = $request->validated();
+        $validated['caminho'] = $request->file('foto')->store('.');
+        $validated['foto_perfil'] = false;
         
         //deletar a foto antiga 
         Storage::delete($foto->caminho);
 
-        $foto->update($newFoto);
+        $foto->update($validated);
         return redirect("/homenageados/$foto->homenageado_id");
     }
 

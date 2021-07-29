@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HomenageadoRequest;
 use App\Models\Foto;
 use App\Models\Homenageado;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class HomenageadoController extends Controller
@@ -44,22 +43,24 @@ class HomenageadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HomenageadoRequest $request)
     {
+        $validated = $request->validated();
         $homenageado = [];
-        $homenageado['nome'] = $request->nome;
-        $homenageado['data_nascimento'] = $request->data_nasc;
-        $homenageado['data_falecimento'] = $request->data_fale;
-        $homenageado['biografia'] = $request->bio;
+        $homenageado['nome'] = $validated['nome'];
+        $homenageado['data_nascimento'] = $validated['data_nascimento'];
+        $homenageado['data_falecimento'] = $validated['data_falecimento'];
+        $homenageado['biografia'] = $validated['biografia'];
         $homenageado = Homenageado::create($homenageado);
 
         //salvando a foto de perfil
         $foto_perfil = [];
         $foto_perfil['homenageado_id'] = $homenageado->id;
-        $foto_perfil['caminho'] = $request->file('foto')->store('.');
+        if($request->foto_perfil != null) $foto_perfil['caminho'] = $request->file('foto_perfil')->store('.');
+        else $foto_perfil['caminho'] = './sem_imagem.jpg';
         $foto_perfil['foto_perfil'] = true;
         $foto_perfil = Foto::create($foto_perfil);
-
+        
         return redirect("/homenageados/$homenageado->id");
     }
 
@@ -100,24 +101,27 @@ class HomenageadoController extends Controller
      * @param  \App\Models\Homenageado  $homenageado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Homenageado $homenageado)
+    public function update(HomenageadoRequest $request, Homenageado $homenageado)
     {
+        $validated = $request->validated();
         $updateHomenageado = [];
-        $updateHomenageado['nome'] = $request->nome;
-        $updateHomenageado['data_nascimento'] = $request->data_nasc;
-        $updateHomenageado['data_falecimento'] = $request->data_fale;
-        $updateHomenageado['biografia'] = $request->bio;
-
+        $updatehomenageado['nome'] = $validated['nome'];
+        $updatehomenageado['data_nascimento'] = $validated['data_nascimento'];
+        $updatehomenageado['data_falecimento'] = $validated['data_falecimento'];
+        $updatehomenageado['biografia'] = $validated['biografia'];
+       
         $fotoPerfil = $homenageado->fotoPerfil($homenageado->id);
         $novaFotoPerfil = [];
-        $novaFotoPerfil['homenageado_id'] = $homenageado->id;
-        $novaFotoPerfil['caminho'] = $request->file('foto')->store('.');
+        
         $novaFotoPerfil['foto_perfil'] = true;
-        // deletar foto de perfil antiga
-        Storage::delete($fotoPerfil->caminho);
+        $novaFotoPerfil['homenageado_id'] = $homenageado->id;
+        if($request->foto_perfil != null){
+            $novaFotoPerfil['caminho'] = $request->file('foto_perfil')->store('.');
+            if($fotoPerfil->caminho != './sem_imagem.jpg') Storage::delete($fotoPerfil->caminho); // deletar foto de perfil antiga
+        } 
+        else $novaFotoPerfil['caminho'] = $fotoPerfil->caminho; 
+        
         $fotoPerfil->update($novaFotoPerfil);
-
-        $updateHomenageado['foto_perfil'] = $fotoPerfil->id;
         $homenageado->update($updateHomenageado);
 
         return redirect("/homenageados/{$homenageado->id}");
@@ -131,6 +135,9 @@ class HomenageadoController extends Controller
      */
     public function destroy(Homenageado $homenageado)
     {
+        foreach($homenageado->fotos as $foto){
+            if($foto->caminho != './sem_image.jpg') Storage::delete($foto->caminho);
+        }
         $homenageado->fotos()->delete();
         $homenageado->mensagens()->delete();
         $homenageado->delete();

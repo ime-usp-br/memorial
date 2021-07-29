@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MensagemRequest;
 use App\Models\Mensagem;
-use Illuminate\Http\Request;
 
 class MensagemController extends Controller
 {
@@ -37,15 +37,11 @@ class MensagemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MensagemRequest $request)
     {
-        $msg = [];
-        $msg['nome'] = $request->nome;
-        $msg['email'] = $request->email;
-        $msg['instituicao'] = $request->instituicao;
-        $msg['mensagem'] = $request->msg;
-        $msg['homenageado_id'] = $request->homenageado_id;
-        $msg = Mensagem::create($msg);
+        $validated = $request->validated();
+        $msg = Mensagem::create($validated);
+        request()->session()->flash('Mensagem criada com sucesso!');
         return redirect("/homenageados/$msg->homenageado_id");
     }
 
@@ -83,15 +79,11 @@ class MensagemController extends Controller
      * @param  \App\Models\Mensagem  $mensagem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mensagem $mensagem)
+    public function update(MensagemRequest $request, Mensagem $mensagem)
     {
-        $novaMsg = [];
-        $novaMsg['nome'] = $request->nome;
-        $novaMsg['email'] = $request->email;
-        $novaMsg['instituicao'] = $request->instituicao;
-        $novaMsg['mensagem'] = $request->msg;
-        $novaMsg['homenageado_id'] = $request->homenageado_id;
-        $mensagem->update($novaMsg);
+        $validated = $request->validated();
+        $mensagem->update($validated);
+        request()->session()->flash('Mensagem atualizada com sucesso!');
         return redirect("/homenageados/$mensagem->homenageado_id");
     }
 

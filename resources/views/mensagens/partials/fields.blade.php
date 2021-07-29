@@ -1,6 +1,6 @@
 Nome: {{$mensagem->nome}} <br>
 Instituição: {{$mensagem->instituicao}} <br>
-<textarea name="msg" cols="30" rows="10">{{$mensagem->mensagem}}</textarea> <br>
+Mensagem: {{$mensagem->mensagem}}<br>
 @if(Auth::user() != null)
       <a href="/mensagems/{{$mensagem->id}}/edit">Editar mensagem</a> <br>
       <form action="/mensagems/{{ $mensagem->id }} " method="post">

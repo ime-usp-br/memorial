@@ -1,3 +1,4 @@
+@extends('main')
 @if(Auth::user() == null)
     <a href="/login">Login</a> <br>
 @else

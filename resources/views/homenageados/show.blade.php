@@ -1,3 +1,4 @@
+@extends('main')
 @include('homenageados.partials.homenageado') <br><br>
 
 

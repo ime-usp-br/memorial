@@ -3,5 +3,5 @@ Email: <input type="email" name="email" value="{{old('email', $mensagem->email)}
 Instituição: <input type="text" name="instituicao" value="{{old('instituicao', $mensagem->instituicao)}}"> <br>
 <input type="hidden" name="homenageado_id" value="{{$homenageado_id}}">
 Mensagem: <br>
-<textarea name="msg" cols="30" rows="10"></textarea> <br>
+<textarea name="mensagem" cols="30" rows="10"></textarea> <br>
 <button type="submit">Enviar</button> <br>
