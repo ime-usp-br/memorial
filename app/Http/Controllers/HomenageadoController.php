@@ -6,6 +6,8 @@ use App\Http\Requests\HomenageadoRequest;
 use App\Models\Foto;
 use App\Models\Homenageado;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class HomenageadoController extends Controller
 {
@@ -32,6 +34,8 @@ class HomenageadoController extends Controller
      */
     public function create()
     {
+        if(!Gate::allows('administrador')) return redirect('/');
+
         return view('homenageados.create', [
             'homenageado' => new Homenageado
         ]);
@@ -45,6 +49,8 @@ class HomenageadoController extends Controller
      */
     public function store(HomenageadoRequest $request)
     {
+        if(!Gate::allows('administrador')) return redirect('/');
+
         $validated = $request->validated();
         $homenageado = [];
         $homenageado['nome'] = $validated['nome'];
@@ -88,6 +94,8 @@ class HomenageadoController extends Controller
      */
     public function edit(Homenageado $homenageado)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$homenageado->id])) return redirect("/homenageados/$homenageado->id");
+
         $homenageado->formatData($homenageado);
         return view('homenageados.edit', [
             'homenageado' => $homenageado
@@ -103,6 +111,8 @@ class HomenageadoController extends Controller
      */
     public function update(HomenageadoRequest $request, Homenageado $homenageado)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$homenageado->id])) return redirect("/homenageados/$homenageado->id");
+
         $validated = $request->validated();
         $updateHomenageado = [];
         $updatehomenageado['nome'] = $validated['nome'];
@@ -135,11 +145,16 @@ class HomenageadoController extends Controller
      */
     public function destroy(Homenageado $homenageado)
     {
+        if(!Gate::allows('administrador')) return redirect("/homenageados/$homenageado->id");
+        
         foreach($homenageado->fotos as $foto){
             Storage::delete($foto->caminho);
         }
         $homenageado->fotos()->delete();
         $homenageado->mensagens()->delete();
+        foreach($homenageado->curadores as $curador){
+            $homenageado->curadores()->detach($curador);
+        }
         $homenageado->delete();
         return redirect("/");
     }

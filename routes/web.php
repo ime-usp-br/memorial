@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MensagemController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,16 @@ Route::get('/mensagems/create/{homenageado_id}', [MensagemController::class, 'cr
 Route::get('login',[LoginController::class, 'redirectToProvider'])->name('login');
 Route::get('callback', [LoginController::class, 'handleProviderCallback']);
 Route::post('logout',[LoginController::class, 'logout'])->name('logout');
+
+//Rotas para adicionar um novo administrador
+Route::get('/novoadmin', [UserController::class, 'formAdmin']);
+Route::post('/novoadmin', [UserController::class, 'registerAdmin']);
+
+//Rotas para adicionar um novo curador
+Route::get('/novocurador/{homenageado_id}', [UserController::class, 'formCurador']);
+Route::post('/novocurador', [UserController::class, 'registerCurador']);
+
+//Rotas para remover um curador
+Route::get('/admin/removercurador/{homenageado_id}', [UserController::class, 'formRemoverCurador']);
+Route::post('/admin/removercurador', [UserController::class, 'removerCurador']);
 

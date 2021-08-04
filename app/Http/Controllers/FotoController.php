@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FotoRequest;
 use App\Models\Foto;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class FotoController extends Controller
 {
@@ -25,6 +26,8 @@ class FotoController extends Controller
      */
     public function create($homenageado_id)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$homenageado_id])) return redirect("/homenageados/$homenageado_id");
+
         $foto = new Foto();
         return view('fotos.create', [
             'foto' => $foto,
@@ -40,6 +43,8 @@ class FotoController extends Controller
      */
     public function store(FotoRequest $request)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$request->homenageado_id])) return redirect("/homenageados/$request->homenageado_id");
+
         $validated = $request->validated();
         $validated['caminho'] = $request->file('foto')->store('.');
         $validated['foto_perfil'] = false;
@@ -66,6 +71,7 @@ class FotoController extends Controller
      */
     public function edit(Foto $foto)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$foto->homenageado_id])) return redirect("/homenageados/$foto->homenageado_id");
         return view('fotos.edit', [
             'foto' => $foto,
             'homenageado_id' => $foto->homenageado_id
@@ -81,6 +87,8 @@ class FotoController extends Controller
      */
     public function update(FotoRequest $request, Foto $foto)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$foto->homenageado_id])) return redirect("/homenageados/$foto->homenageado_id");
+
         $validated = $request->validated();
         $validated['caminho'] = $request->file('foto')->store('.');
         $validated['foto_perfil'] = false;
@@ -100,6 +108,8 @@ class FotoController extends Controller
      */
     public function destroy(Foto $foto)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$foto->homenageado_id])) return redirect("/homenageados/$foto->homenageado_id");
+        
         $homenageado_id = $foto->homenageado_id;
         Storage::delete($foto->caminho);
         $foto->delete();

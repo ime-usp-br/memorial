@@ -24,7 +24,7 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $userSenhaUnica = Socialite::driver('senhaunica')->user();
-        // $admins = explode(',', trim(config('defesas.admins')));
+        // $admins = explode(',', trim(env('SENHAUNICA_ADMINS')));
         
         // if(!in_array($userSenhaUnica->codpes, $admins)){
         //     request()->session()->flash('alert-danger', 'Você não tem permissão de login');
@@ -41,6 +41,9 @@ class LoginController extends Controller
 
         // bind do dados retornados
         Auth::login($user, true);
+        
+        // if($user->role == 'curador') return redirect("/homenegeados/");
+
         return redirect('/');
     }
 
