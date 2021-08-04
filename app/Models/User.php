@@ -58,4 +58,12 @@ class User extends Authenticatable
         }
         return $souCurador;
     }
+
+    public function roles(){
+        return [
+            'administrador',
+            'curador',
+            'none'
+        ];
+    }
 }

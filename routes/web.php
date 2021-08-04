@@ -39,3 +39,7 @@ Route::post('/novoadmin', [UserController::class, 'registerAdmin']);
 Route::get('/novocurador/{homenageado_id}', [UserController::class, 'formCurador']);
 Route::post('/novocurador', [UserController::class, 'registerCurador']);
 
+//Rotas para remover um curador
+Route::get('/admin/removercurador/{homenageado_id}', [UserController::class, 'formRemoverCurador']);
+Route::post('/admin/removercurador', [UserController::class, 'removerCurador']);
+

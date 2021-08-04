@@ -36,5 +36,6 @@ FOTOS: <br>
 
 <a href="{{'/novocurador/'.$homenageado->id}}">Adicionar curador</a> <br>
 
+<a href="{{'/admin/removercurador/'.$homenageado->id}}">Remover curador</a> <br>
 
 <a href="/">Voltar</a>

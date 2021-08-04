@@ -152,6 +152,9 @@ class HomenageadoController extends Controller
         }
         $homenageado->fotos()->delete();
         $homenageado->mensagens()->delete();
+        foreach($homenageado->curadores as $curador){
+            $homenageado->curadores()->detach($curador);
+        }
         $homenageado->delete();
         return redirect("/");
     }
