@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "uspdev/laravel-usp-validators": "^1.0",
         "uspdev/senhaunica-socialite": "^3.0"
     },
     "require-dev": {

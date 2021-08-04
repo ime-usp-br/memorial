@@ -36,4 +36,8 @@ class Homenageado extends Model
     {
         return $this->hasMany('App\Models\Mensagem');
     }
+
+    public function curadores(){
+        return $this->belongsToMany(User::class, 'curadores');
+    }
 }

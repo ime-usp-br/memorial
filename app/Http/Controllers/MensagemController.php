@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MensagemRequest;
 use App\Models\Mensagem;
+use Illuminate\Support\Facades\Gate;
 
 class MensagemController extends Controller
 {
@@ -66,6 +67,8 @@ class MensagemController extends Controller
      */
     public function edit(Mensagem $mensagem)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$mensagem->homenageado_id])) return redirect("/homenageados/$mensagem->homenageado_id");
+        
         return view('mensagens.edit', [
             'mensagem' => $mensagem,
             'homenageado_id' => $mensagem->homenageado_id
@@ -81,6 +84,8 @@ class MensagemController extends Controller
      */
     public function update(MensagemRequest $request, Mensagem $mensagem)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$mensagem->homenageado_id])) return redirect("/homenageados/$mensagem->homenageado_id");
+
         $validated = $request->validated();
         $mensagem->update($validated);
         request()->session()->flash('Mensagem atualizada com sucesso!');
@@ -95,6 +100,8 @@ class MensagemController extends Controller
      */
     public function destroy(Mensagem $mensagem)
     {
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$mensagem->homenageado_id])) return redirect("/homenageados/$mensagem->homenageado_id");
+
         $homenageado_id = $mensagem->homenageado_id;
         $mensagem->delete();
         return redirect("/homenageados/$homenageado_id");
