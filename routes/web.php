@@ -32,14 +32,16 @@ Route::get('callback', [LoginController::class, 'handleProviderCallback']);
 Route::post('logout',[LoginController::class, 'logout'])->name('logout');
 
 //Rotas para adicionar um novo administrador
-Route::get('/novoadmin', [UserController::class, 'formAdmin']);
-Route::post('/novoadmin', [UserController::class, 'registerAdmin']);
+Route::get('/admin/novoadmin', [UserController::class, 'formAdmin']);
+Route::post('/admin/novoadmin', [UserController::class, 'registerAdmin']);
 
 //Rotas para adicionar um novo curador
-Route::get('/novocurador/{homenageado_id}', [UserController::class, 'formCurador']);
-Route::post('/novocurador', [UserController::class, 'registerCurador']);
+Route::get('/admin/novocurador/{homenageado_id}', [UserController::class, 'formCurador']);
+Route::post('/admin/novocurador', [UserController::class, 'registerCurador']);
 
 //Rotas para remover um curador
 Route::get('/admin/removercurador/{homenageado_id}', [UserController::class, 'formRemoverCurador']);
 Route::post('/admin/removercurador', [UserController::class, 'removerCurador']);
+
+Route::get('/curador/homenageados/{curador_codpes}', [UserController::class, 'showHomenageadosCurador']);
 

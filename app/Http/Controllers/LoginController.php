@@ -42,7 +42,7 @@ class LoginController extends Controller
         // bind do dados retornados
         Auth::login($user, true);
         
-        // if($user->role == 'curador') return redirect("/homenegeados/");
+        if($user->role == 'curador') return redirect("/curador/homenageados/$user->codpes");
 
         return redirect('/');
     }

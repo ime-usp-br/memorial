@@ -7,7 +7,7 @@
         <button type="submit">logout</button>
     </form> 
 
-    <a href="/novoadmin">Adicionar administrador</a> <br>
+    <a href="admin/novoadmin">Adicionar administrador</a> <br>
 
     <a href="/homenageados/create">Adicionar homenageado</a> <br>
 

@@ -34,7 +34,7 @@ FOTOS: <br>
   <button type="submit" onclick="return confirm('Tem certeza?');">Apagar</button> 
 </form>
 
-<a href="{{'/novocurador/'.$homenageado->id}}">Adicionar curador</a> <br>
+<a href="{{'/admin/novocurador/'.$homenageado->id}}">Adicionar curador</a> <br>
 
 <a href="{{'/admin/removercurador/'.$homenageado->id}}">Remover curador</a> <br>
 
