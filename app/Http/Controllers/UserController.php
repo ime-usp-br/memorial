@@ -49,7 +49,7 @@ class UserController extends Controller
         $user = User::where('codpes',$request->codpes)->first();
         if(!$user) $user = new User;
 
-        $homenageado = Homenageado::select('*')->where('homenageados.id', '=',$request->homenageado_id)->get();
+        $homenageado = Homenageado::find($request->homenageado_id);
 
         if($user->role == 'administrador'){
             request()->session()->flash('alert-info','Este usuário já tem permissão de administrador.');
@@ -63,16 +63,15 @@ class UserController extends Controller
             $user->homenageados()->attach($homenageado);
         }
 
-        return redirect("/homenageados/{$homenageado[0]->id}");
+        return redirect("/homenageados/{$homenageado->id}");
     }
 
-    // public function showHomenageadosCurados($user){
-
-
-    //     return view('users.curadores.homanegeados', [
-    //         'user' =>$user
-    //     ]);
-    // }
+    public function showHomenageadosCurador($curador_codpes){
+        $curador = User::where('codpes',$curador_codpes)->first();
+        return view('users.curadores.homenageados', [
+            'curador' => $curador
+        ]);
+    }
 
     public function formRemoverCurador($homenageado_id){
         if(!Gate::allows('administrador')) return redirect("/homenageados/$homenageado_id");
@@ -95,9 +94,9 @@ class UserController extends Controller
         $homenageado = Homenageado::find($request->homenageado_id);
 
         $homenageado->curadores()->detach($user);
+        $user->role = 'none';
 
-        $user->role = $request->role;
         $user->save();
-        return redirect('/');
+        return redirect("/homenageados/$request->homenageado_id");
     }
 }

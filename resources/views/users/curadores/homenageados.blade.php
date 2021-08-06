@@ -1,5 +1,5 @@
-HOMENAGEADOS SOB SUA RESPONSABILIDADE:
+HOMENAGEADOS SOB RESPONSABILIDADE DO CURADOR {{$curador->nome}} - {{$curador->codpes}}: <br>
 
-@foreach($user->homenageados as $homenageado)
-    @include(homenageados.partials.fields) <br><br>
+@foreach($curador->homenageados as $homenageado)
+    @include('homenageados.partials.fields') <br><br>
 @endforeach
