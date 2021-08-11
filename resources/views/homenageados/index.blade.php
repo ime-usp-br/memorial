@@ -7,9 +7,12 @@
         <button type="submit">logout</button>
     </form> 
 
-    <a href="admin/novoadmin">Adicionar administrador</a> <br>
+    @can('administrador')
+        <a href="admin/novoadmin">Adicionar administrador</a> <br>
 
-    <a href="/homenageados/create">Adicionar homenageado</a> <br>
+        <a href="/homenageados/create">Adicionar homenageado</a> <br>
+    @endcan
+    
 
 
 @endif

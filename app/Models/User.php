@@ -49,14 +49,12 @@ class User extends Authenticatable
     }   
 
     public function souCuradorHomenageado($homenageado_id){
-        $souCurador = false;
         foreach($this->homenageados as $homenageado){
             if($homenageado->id == $homenageado_id){
-                $souCurador = true;
-                break;
+                return true;
             }
         }
-        return $souCurador;
+        return false;
     }
 
     public function roles(){
@@ -65,5 +63,9 @@ class User extends Authenticatable
             'curador',
             'none'
         ];
+    }
+
+    public function admins(){
+        return User::select('*')->where('role','=','administrador')->get();
     }
 }

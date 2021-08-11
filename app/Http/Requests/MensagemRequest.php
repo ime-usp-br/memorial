@@ -28,7 +28,8 @@ class MensagemRequest extends FormRequest
             'email' => 'required|email',
             'instituicao' => 'required',
             'mensagem' => 'required',
-            'homenageado_id' => 'required|exists:App\Models\Homenageado,id'
+            'homenageado_id' => 'required|exists:App\Models\Homenageado,id',
+            'estado' => 'nullable'
         ];
         return $rules;
     }

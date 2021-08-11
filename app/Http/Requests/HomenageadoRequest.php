@@ -25,8 +25,8 @@ class HomenageadoRequest extends FormRequest
     {
         return [
             'nome' => 'required',
-            'data_nascimento' => 'nullable|date',
-            'data_falecimento' => 'nullable|date',
+            'data_nascimento' => 'nullable|date_format:d/m/Y',
+            'data_falecimento' => 'nullable|date_format:d/m/Y',
             'biografia' => 'nullable',
             'foto_perfil' => 'nullable|image'
         ];
@@ -36,8 +36,8 @@ class HomenageadoRequest extends FormRequest
     {
         return [
             'nome.required' => 'O nome é obrigatório.',
-            'data_nascimento.date' => 'Formato da data inválido.',
-            'data_falecimento.date' => 'Formato da data inválido.',
+            'data_nascimento.date_format' => 'Formato da data inválido.',
+            'data_falecimento.date_format' => 'Formato da data inválido.',
             'foto_perfil.image' => 'A foto de perfil precisa ser uma imagem.'
         ];
     }

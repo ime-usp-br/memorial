@@ -11,17 +11,6 @@ class Homenageado extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function formatData($homenageado){
-        if($homenageado->data_nascimento != null){
-            $homenageado->data_nascimento = Carbon::parse($homenageado->data_nascimento)->format('d/m/Y');
-        }
-
-        if($homenageado->data_falecimento != null){
-            $homenageado->data_falecimento = Carbon::parse($homenageado->data_falecimento)->format('d/m/Y');
-        }
-        
-        return $homenageado;
-    }
 
     public function fotoPerfil($id){
         return Foto::select('*')->where('fotos.homenageado_id',$id)->where('fotos.foto_perfil',true)->get()[0];

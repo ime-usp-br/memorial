@@ -13,4 +13,12 @@ class Mensagem extends Model
     public function homenageado(){
         return $this->belongsTo('App\Models\Homenageado');
     }
+
+    public function estados(){
+        return [
+            'PENDENTE',
+            'APROVADO',
+            'NEGADO'
+        ];
+    }
 }

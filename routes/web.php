@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MensagemController;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\MensagemRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,7 @@ Route::get('/admin/removercurador/{homenageado_id}', [UserController::class, 'fo
 Route::post('/admin/removercurador', [UserController::class, 'removerCurador']);
 
 Route::get('/curador/homenageados/{curador_codpes}', [UserController::class, 'showHomenageadosCurador']);
+
+Route::get('/mensagems/validar/{msg_id}', [MensagemController::class, 'formValidarMensagem']);
+Route::get('/mensagems/validar/{msg_id}/{validacao}', [MensagemController::class, 'validarMensagem']);
 
