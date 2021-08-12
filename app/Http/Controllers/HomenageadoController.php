@@ -77,11 +77,10 @@ class HomenageadoController extends Controller
      */
     public function show(Homenageado $homenageado)
     {
-
         $fotoPerfil = $homenageado->fotoPerfil($homenageado->id);
         return view('homenageados.show', [
             'homenageado' => $homenageado,
-            'fotoPerfil' => $fotoPerfil
+            'fotoPerfil' => $fotoPerfil,
         ]);
     }
 

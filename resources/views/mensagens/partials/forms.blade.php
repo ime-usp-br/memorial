@@ -21,5 +21,12 @@ Mensagem: <br>
             @endif
         @endforeach
     </select>
+@else
+    {!! captcha_image_html('MensagemCaptcha') !!}
+    <input type="text" id="CaptchaCode" name="CaptchaCode"> <br><br><br>
 @endif
+
+
+
+
 <button type="submit">Enviar</button> <br>

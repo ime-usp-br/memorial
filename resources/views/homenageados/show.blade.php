@@ -44,5 +44,11 @@ FOTOS: <br>
   <a href="{{'/admin/removercurador/'.$homenageado->id}}">Remover curador</a> <br>
 @endcan
 
+@if($homenageado->curadores->isNotEmpty())
+  Esse homenageado é curado por: <br>
+  @foreach($homenageado->curadores as $curador)
+    {{$curador->name}} <br>
+  @endforeach
+@endif
 
 <a href="/">Voltar</a>
