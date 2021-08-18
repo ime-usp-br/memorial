@@ -7,3 +7,5 @@ Data de Falecimento: {{(new Datetime($homenageado->data_falecimento))->format('d
 Biografia: <br>
 {{$homenageado->biografia}}
 
+
+

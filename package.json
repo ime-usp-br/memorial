@@ -13,9 +13,14 @@
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.37.5",
+        "sass-loader": "^12.1.0"
     },
     "dependencies": {
+        "@coreui/coreui": "^4.0.1",
+        "bootstrap": "^5.1.0",
         "jquery": "^3.6.0"
     }
 }

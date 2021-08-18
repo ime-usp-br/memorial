@@ -30,7 +30,6 @@ class MensagemRequest extends FormRequest
             'mensagem' => 'required',
             'homenageado_id' => 'required|exists:App\Models\Homenageado,id',
             'estado' => 'nullable',
-            'CaptchaCode' => 'required|valid_captcha'
         ];
         return $rules;
     }
@@ -43,8 +42,6 @@ class MensagemRequest extends FormRequest
             'email.email' => 'Formato de email inválido.',
             'instituicao.required' => 'A instituição é obrigatória.',
             'mensagem.required' => 'A mensagem é obrigatória.',
-            'CaptchaCode.required' => 'Validação do captcha é obrigatória.',
-            'CaptchaCode.valid_captcha' => 'Texto do captcha incorreto.'
         ];
     }
 }
