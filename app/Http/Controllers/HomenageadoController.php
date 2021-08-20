@@ -78,9 +78,15 @@ class HomenageadoController extends Controller
     public function show(Homenageado $homenageado)
     {
         $fotoPerfil = $homenageado->fotoPerfil($homenageado->id);
+        $fotos = [];
+        $count = 0;
+        foreach($homenageado->fotos as $foto){
+            if(!$foto->foto_perfil) $fotos[$count++] = $foto;
+        } 
         return view('homenageados.show', [
             'homenageado' => $homenageado,
             'fotoPerfil' => $fotoPerfil,
+            'fotos' => $fotos
         ]);
     }
 

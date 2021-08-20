@@ -11,6 +11,40 @@ const mix = require('laravel-mix');
  |
  */
 
+ module.exports = {
+
+    // stuff removed for clarity ...
+  
+    module: {
+      loaders: [
+        {
+            test: /\.(scss)$/,
+            use: [{
+              loader: 'style-loader', // inject CSS to page
+            }, {
+              loader: 'css-loader', // translates CSS into CommonJS modules
+            }, {
+              loader: 'postcss-loader', // Run postcss actions
+              options: {
+                plugins: function () { // postcss plugins, can be exported to postcss.config.js
+                  return [
+                    require('autoprefixer')
+                  ];
+                }
+              }
+            }, {
+              loader: 'sass-loader' // compiles Sass to CSS
+            }]
+          },
+      ],
+    },
+  
+    // stuff removed for clarity ...
+  
+    sassResources: './config/sass-resources.scss',
+  }
+
+
 mix
     .sass('resources/views/scss/style.scss', 'public/site/style.css')
     .scripts('node_modules/jquery/dist/jquery.js', 'public/site/jquery.js')

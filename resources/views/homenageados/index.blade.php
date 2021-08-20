@@ -2,11 +2,11 @@
 
 
 @if(Auth::user() == null)
-    <a href="/login">Login</a> <br>
+    <a href="/login" class="btn btn-primary">Login</a> <br>
 @else
     <form action="/logout" method="POST">
         @csrf
-        <button type="submit">logout</button>
+        <button type="submit" class="btn btn-primary">logout</button>
     </form> 
 
     @can('administrador')
