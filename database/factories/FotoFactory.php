@@ -22,7 +22,10 @@ class FotoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'descricao' => $this->faker->sentence(5),
+            'caminho' => '',
+            'foto_perfil' => false,
+            'homenageado_id' => 'overridden',
         ];
     }
 }
