@@ -1,6 +1,7 @@
 @extends('main')
 
-<div class="container-fluid" style="margin-top: 10px; margin-bottom: 10px;">
+@section('content')
+<div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
 
   @include('homenageados.partials.homenageado') <br>
 
@@ -94,6 +95,9 @@
   @endcan
 
 </div>
+@endsection
+
+
 
 
 
