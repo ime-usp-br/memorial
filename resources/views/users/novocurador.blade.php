@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+<br>
 <form action="/admin/novocurador" method="post">
     @csrf
     Número USP: <input type="text" name="codpes"> <br>

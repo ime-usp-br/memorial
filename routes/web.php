@@ -20,7 +20,7 @@ use App\Http\Requests\MensagemRequest;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [HomenageadoController::class, 'index']);
 Route::resource('/homenageados',HomenageadoController::class);
 Route::resource('/fotos', FotoController::class);
 Route::get('/fotos/create/{homenageado_id}', [FotoController::class, 'create']);

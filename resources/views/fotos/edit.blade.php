@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+<br>
 <form action="/fotos/{{$foto->id}}" enctype="multipart/form-data" method="POST">
     @csrf
     @method('PATCH')

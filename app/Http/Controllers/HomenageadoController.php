@@ -7,6 +7,7 @@ use App\Models\Foto;
 use App\Models\Homenageado;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,15 @@ class HomenageadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $homenageados = Homenageado::select('*')->get();
+        if(isset($request->search)){
+            $homenageados = Homenageado::where('nome','LIKE',"%{$request->search}%")->paginate(10);
+        }
+        else{
+            $homenageados = Homenageado::paginate(10);
+            
+        } 
         return view('homenageados.index', [
             'homenageados' => $homenageados
         ]);

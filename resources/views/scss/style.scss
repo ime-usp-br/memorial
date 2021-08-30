@@ -1,5 +1,20 @@
 @import "~@coreui/coreui/scss/coreui";
 
+#app {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content {
+  padding-bottom: 8rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;            /* Footer height */
+}
 
 .card{
     margin-bottom: 10px;
