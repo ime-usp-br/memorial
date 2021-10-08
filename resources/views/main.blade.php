@@ -32,9 +32,6 @@
                     <a class="nav-link active text-white" href="/"><i class="cil-home"></i> Página inicial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/">Homenageados</a>
-                </li>
-                <li class="nav-item">
                     @if(Auth::user() == null)
                         <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i> Login</a>
                     @else
