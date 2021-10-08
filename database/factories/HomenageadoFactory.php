@@ -22,7 +22,11 @@ class HomenageadoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => $this->faker->name,
+            'data_nascimento' => $this->faker->dateTime,
+            'data_falecimento' => $this->faker->dateTime,
+            'biografia' => $this->faker->sentence(200),
+            'funcao' => 'Função teste'
         ];
     }
 }

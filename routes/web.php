@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MensagemController;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\MensagemRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [HomenageadoController::class, 'index']);
 Route::resource('/homenageados',HomenageadoController::class);
 Route::resource('/fotos', FotoController::class);
 Route::get('/fotos/create/{homenageado_id}', [FotoController::class, 'create']);
@@ -44,4 +45,7 @@ Route::get('/admin/removercurador/{homenageado_id}', [UserController::class, 'fo
 Route::post('/admin/removercurador', [UserController::class, 'removerCurador']);
 
 Route::get('/curador/homenageados/{curador_codpes}', [UserController::class, 'showHomenageadosCurador']);
+
+Route::get('/mensagems/validar/{msg_id}', [MensagemController::class, 'formValidarMensagem']);
+Route::get('/mensagems/validar/{msg_id}/{validacao}', [MensagemController::class, 'validarMensagem']);
 

@@ -22,7 +22,12 @@ class MensagemFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => $this->faker->name,
+            'email' => $this->faker->email,
+            'instituicao' => 'Instiuição teste',
+            'mensagem' => $this->faker->sentence(50),
+            'estado' => 'APROVADO',
+            'homenageado_id' => 'overridden'
         ];
     }
 }

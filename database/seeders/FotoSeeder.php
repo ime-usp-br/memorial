@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Homenageado;
+use App\Models\Foto;
 
 class FotoSeeder extends Seeder
 {
@@ -13,6 +15,16 @@ class FotoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $homenageados = Homenageado::select('*')->get();
+        foreach($homenageados as $homenageado){
+            $mensagem = [
+                'descricao' => 'descricao teste',
+                'caminho' => '',
+                'foto_perfil' => false,
+                'homenageado_id' => $homenageado->id
+            ];
+            Foto::create($mensagem);
+            Foto::factory(11)->create(['homenageado_id' => $homenageado->id]);
+        }
     }
 }

@@ -1,0 +1,37 @@
+@import "~@coreui/coreui/scss/coreui";
+
+#app {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content {
+  padding-bottom: 8rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;            /* Footer height */
+}
+
+.card{
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.card-columns {
+    @include media-breakpoint-only(xl) {
+      column-count: 3;
+    }
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    @include media-breakpoint-only(md) {
+      column-count: 3;
+    }
+    @include media-breakpoint-only(sm) {
+      column-count: 2;
+    }
+  }

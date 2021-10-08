@@ -2,4 +2,4 @@
 <input type="file" name="foto">
 <input type="text" name="descricao" value="{{old('desc', $foto->descricao)}}">
 
-<button type="submit"> Enviar </button>
+<button class="btn btn-success" type="submit"> Enviar </button>

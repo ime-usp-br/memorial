@@ -53,10 +53,10 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
-        // 'uploads' => [
-        //     'driver' => 'local',
-        //     'root' => public_path('uploads/') // MUDANÇA DE PASTA PARA ARMAZENAR AS FOTOS
-        // ]
+        'seed' => [
+            'driver' => 'local',
+            'root' => public_path('seed_images') // MUDANÇA DE PASTA PARA ARMAZENAR AS FOTOS
+        ]
 
     ],
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HomenageadoRequest;
 use App\Models\Foto;
 use App\Models\Homenageado;
+use Carbon\Carbon;
+use DateTime;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +19,15 @@ class HomenageadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $homenageados = Homenageado::select('*')->get();
-        foreach($homenageados as $homenageado){
-            $homenageado->formatData($homenageado);
+        if(isset($request->search)){
+            $homenageados = Homenageado::where('nome','LIKE',"%{$request->search}%")->paginate(10);
         }
+        else{
+            $homenageados = Homenageado::paginate(10);
+            
+        } 
         return view('homenageados.index', [
             'homenageados' => $homenageados
         ]);
@@ -54,8 +60,9 @@ class HomenageadoController extends Controller
         $validated = $request->validated();
         $homenageado = [];
         $homenageado['nome'] = $validated['nome'];
-        $homenageado['data_nascimento'] = $validated['data_nascimento'];
-        $homenageado['data_falecimento'] = $validated['data_falecimento'];
+        $homenageado['data_nascimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_nascimento'])->format('Y-m-d');
+        $homenageado['data_falecimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_falecimento'])->format('Y-m-d');
+        $homenageado['funcao'] = $validated['funcao'];
         $homenageado['biografia'] = $validated['biografia'];
         $homenageado = Homenageado::create($homenageado);
 
@@ -78,11 +85,16 @@ class HomenageadoController extends Controller
      */
     public function show(Homenageado $homenageado)
     {
-        $homenageado->formatData($homenageado);
         $fotoPerfil = $homenageado->fotoPerfil($homenageado->id);
+        $fotos = [];
+        $count = 0;
+        foreach($homenageado->fotos as $foto){
+            if(!$foto->foto_perfil) $fotos[$count++] = $foto;
+        } 
         return view('homenageados.show', [
             'homenageado' => $homenageado,
-            'fotoPerfil' => $fotoPerfil
+            'fotoPerfil' => $fotoPerfil,
+            'fotos' => $fotos
         ]);
     }
 
@@ -96,7 +108,6 @@ class HomenageadoController extends Controller
     {
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$homenageado->id])) return redirect("/homenageados/$homenageado->id");
 
-        $homenageado->formatData($homenageado);
         return view('homenageados.edit', [
             'homenageado' => $homenageado
         ]);
@@ -115,10 +126,11 @@ class HomenageadoController extends Controller
 
         $validated = $request->validated();
         $updateHomenageado = [];
-        $updatehomenageado['nome'] = $validated['nome'];
-        $updatehomenageado['data_nascimento'] = $validated['data_nascimento'];
-        $updatehomenageado['data_falecimento'] = $validated['data_falecimento'];
-        $updatehomenageado['biografia'] = $validated['biografia'];
+        $updateHomenageado['nome'] = $validated['nome'];
+        $updateHomenageado['data_nascimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_nascimento'])->format('Y-m-d');
+        $updateHomenageado['data_falecimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_falecimento'])->format('Y-m-d');
+        $updateHomenageado['funcao'] = $validated['funcao'];
+        $updateHomenageado['biografia'] = $validated['biografia'];
        
         $fotoPerfil = $homenageado->fotoPerfil($homenageado->id);
         $novaFotoPerfil = [];

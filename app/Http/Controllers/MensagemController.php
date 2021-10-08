@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MensagemRequest;
+use App\Mail\mensagemPendente;
 use App\Models\Mensagem;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Homenageado;
+use Illuminate\Support\Facades\Auth;
 
 class MensagemController extends Controller
 {
@@ -28,7 +33,8 @@ class MensagemController extends Controller
         $msg = new Mensagem;
         return view('mensagens.create', [
             'mensagem' => $msg,
-            'homenageado_id' => $id
+            'homenageado_id' => $id,
+            'edit' => false
         ]);
     }
 
@@ -41,8 +47,14 @@ class MensagemController extends Controller
     public function store(MensagemRequest $request)
     {
         $validated = $request->validated();
+        $request->validate([
+            'CaptchaCode' => 'required|valid_captcha'
+        ]);
         $msg = Mensagem::create($validated);
-        request()->session()->flash('Mensagem criada com sucesso!');
+        $user = new User;
+        $homenageado = Homenageado::find($msg->homenageado_id);
+        Mail::send(new mensagemPendente($msg, $homenageado, $user->admins(), $homenageado->curadores()));
+        request()->session()->flash('alert-info', 'Mensagem aguardando validação');
         return redirect("/homenageados/$msg->homenageado_id");
     }
 
@@ -71,7 +83,8 @@ class MensagemController extends Controller
         
         return view('mensagens.edit', [
             'mensagem' => $mensagem,
-            'homenageado_id' => $mensagem->homenageado_id
+            'homenageado_id' => $mensagem->homenageado_id,
+            'edit' => true
         ]);
     }
 
@@ -104,6 +117,28 @@ class MensagemController extends Controller
 
         $homenageado_id = $mensagem->homenageado_id;
         $mensagem->delete();
+        return redirect("/homenageados/$homenageado_id");
+    }
+
+    public function formValidarMensagem($msg_id){
+        $mensagem = Mensagem::find($msg_id);
+        return view('mensagens.validarMensagem',[
+            'mensagem' => $mensagem
+        ]);
+    }
+
+    public function validarMensagem($msg_id, $validacao){
+        $mensagem = Mensagem::find($msg_id);
+        $homenageado_id = $mensagem->homenageado_id;
+        if($validacao == 'deletar') $mensagem->delete();
+        else if($validacao == 'aceitar'){  
+            $mensagem->estado = 'APROVADO';
+            $mensagem->save();
+        }
+        else{
+            $mensagem->estado = 'NEGADO';
+            $mensagem->save();
+        } 
         return redirect("/homenageados/$homenageado_id");
     }
 }
