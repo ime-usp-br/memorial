@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memorial</title>
     <link rel="stylesheet" href="{{asset('site/style.css')}}">
+    <link rel="stylesheet" href="{{asset('site/landingpage.css')}}">
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css">
 </head>
 <body>

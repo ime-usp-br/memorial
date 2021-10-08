@@ -21,6 +21,7 @@
     "dependencies": {
         "@coreui/coreui": "^4.0.1",
         "bootstrap": "^5.1.0",
-        "jquery": "^3.6.0"
+        "jquery": "^3.6.0",
+        "startbootstrap-landing-page": "^6.0.3"
     }
 }
