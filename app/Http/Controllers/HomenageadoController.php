@@ -62,6 +62,7 @@ class HomenageadoController extends Controller
         $homenageado['nome'] = $validated['nome'];
         $homenageado['data_nascimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_nascimento'])->format('Y-m-d');
         $homenageado['data_falecimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_falecimento'])->format('Y-m-d');
+        $homenageado['funcao'] = $validated['funcao'];
         $homenageado['biografia'] = $validated['biografia'];
         $homenageado = Homenageado::create($homenageado);
 
@@ -128,6 +129,7 @@ class HomenageadoController extends Controller
         $updateHomenageado['nome'] = $validated['nome'];
         $updateHomenageado['data_nascimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_nascimento'])->format('Y-m-d');
         $updateHomenageado['data_falecimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_falecimento'])->format('Y-m-d');
+        $updateHomenageado['funcao'] = $validated['funcao'];
         $updateHomenageado['biografia'] = $validated['biografia'];
        
         $fotoPerfil = $homenageado->fotoPerfil($homenageado->id);

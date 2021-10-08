@@ -1,7 +1,12 @@
 @extends('main')
 
 @section('content')
-    <div class="container">
+    
+
+    <div class="container" style="margin-top: 20px;">
+
+        <h1>Memorial</h1>
+
         @can('administrador')
         <br>
         <div class="row justify-content-center">

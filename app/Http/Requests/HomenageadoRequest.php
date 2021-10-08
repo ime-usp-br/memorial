@@ -28,7 +28,8 @@ class HomenageadoRequest extends FormRequest
             'data_nascimento' => 'nullable|date_format:d/m/Y',
             'data_falecimento' => 'nullable|date_format:d/m/Y',
             'biografia' => 'nullable',
-            'foto_perfil' => 'nullable|image'
+            'foto_perfil' => 'nullable|image',
+            'funcao' => 'nullable'
         ];
     }
 

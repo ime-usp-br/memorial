@@ -11,6 +11,7 @@
 <body>
     <div id="app">
         <div id="content">
+            <br>
             <div class="row justify-content-center">
                 <div class="col-1">
                     <a href="/" target="_blank" >
@@ -24,7 +25,7 @@
                 </div>
 
             </div>
-
+            <br>
             <div class="row justify-content-center" style="background-color: #666666; padding: 10px;">
                 <ul class="nav">
                 <li class="nav-item">
