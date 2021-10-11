@@ -14,20 +14,14 @@
         <div id="content">
             <br>
             <div class="row justify-content-center">
-                <div class="col-1">
+                <div class="col-4">
                     <a href="/" target="_blank" >
-                        <img src="{{ asset("img/logo_ime.png") }}">
+                        <img src="{{ asset("img/logoIme.png") }}">
                     </a>
                 </div>
-                <div class="col-3">
-                    <b>Memorial</b> <br>
-                    Instituto de Matemática e Estatística <br>
-                    Universidade de São Paulo
-                </div>
-
             </div>
             <br>
-            <div class="row justify-content-center" style="background-color: #666666; padding: 10px;">
+            <div class="row justify-content-center" style="background-color: #142C68; padding: 10px;">
                 <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link active text-white" href="/"><i class="cil-home"></i> Página inicial</a>
@@ -52,22 +46,17 @@
         
         
 
-        <footer id="footer" style="background-color: #eeeeee; padding: 10px;">
+        <footer id="footer" style="background-color: #142C68; padding: 10px;">
         <div class="container" >
 
 
             <div class="row">
-            <div class="col-md-1">
-                <a href="http://www.ime.usp.br" target="_blank" >
-                <img src="{{ asset("img/logo_ime.png") }}">
-                </a>
-            </div>
             <div class="col-md-4">
-                <b>Memorial</b>
+                <b style="color: #ffffff;">Memorial</b>
 
-                <br><a href="http://www.ime.usp.br">Instituto de Matemática e Estatística</a>
-                <br><a href="http://www.usp.br">Universidade de São Paulo</a>
-                <br><a href="https://uspdev.github.io/"><span>&copy; 2021 USPDev</span></a>
+                <br><a href="http://www.ime.usp.br" style="color: #ffffff;">Instituto de Matemática e Estatística</a>
+                <br><a href="http://www.usp.br" style="color: #ffffff;">Universidade de São Paulo</a>
+                <br><a href="https://uspdev.github.io/" style="color: #ffffff;"><span>&copy; 2021 USPDev</span></a>
 
             </div>
             </div>
