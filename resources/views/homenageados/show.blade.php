@@ -22,8 +22,6 @@
 
   <br>
 
-  <a href="/" class="btn btn-warning">Voltar para página inicial</a> <br><br>
-
   <br>
 
   <ul class="nav nav-tabs" role="tablist">
@@ -39,7 +37,7 @@
     <div class="tab-content">
       <div class="tab-pane active" id="mensagens" role="tabpanel" aria-labelledby="mensagens-tab">
         <div class="container-fluid" style="margin-top: 10px;  margin-bottom: 10px;">
-          <a href="{{'/mensagems/create/'.$homenageado->id}}" class="btn btn-success">Adicionar mensagens</a> <br>
+          <a href="{{'/mensagems/create/'.$homenageado->id}}" class="btn btn-success">Deixar uma mensagem</a> <br>
           <div class="card-columns" style="margin-top: 10px;">
             @foreach($homenageado->mensagens as $mensagem)
               @if($mensagem->estado == 'APROVADO' || ($mensagem->estado != 'APROVADO' && (Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))))
