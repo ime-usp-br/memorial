@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
 
             <div class="container-fluid" style="background-color: #e6e6fa; padding: 10px;">
                 <div class="container">
@@ -58,7 +58,7 @@
 
 
 
-            <div class="container">
+            <div class="container" style="margin-bottom: 100px; margin-top: 20px">
                 @yield('content')
             </div>
         </div>
@@ -67,8 +67,6 @@
 
         <footer id="footer" style="background-color: #142C68; padding: 10px;">
             <div class="container">
-
-
                 <div class="row p-3">
                     <div class="col-10">
                         <span class="nav-link text-white"><strong>Memorial</strong></span>
