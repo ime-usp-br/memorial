@@ -29,7 +29,7 @@
                         <input type="text" class="form-control" name="search" value="{{ request()->search }}">
 
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-success"> Buscar </button>
+                            <button type="submit" class="btn btn-outline-dark"> Buscar </button>
                         </span>
 
                     </div>
@@ -41,7 +41,7 @@
 
 
         @foreach ($homenageados as $homenageado)
-            @include('homenageados.partials.fields') <br><br>
+            @include('homenageados.partials.fields')
         @endforeach
         {{ $homenageados->appends(request()->query())->links() }}
     </div>
