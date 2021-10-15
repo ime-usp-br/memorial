@@ -5,7 +5,6 @@
 
     <div class="container" style="margin-top: 20px;">
 
-        <h1>Memorial</h1>
 
         @can('administrador')
         <br>
@@ -33,7 +32,10 @@
         </div>
         </form>
         
-        
+        <p>Lamentamos profundamente a perda de nossos professores, funcionários, alunos, ex-alunos e aposentados. Cada nome homenageado neste site 
+            representa alguém que faz muita falta e é lembrado com carinho por colegas, familiares e entes queridos. 
+            Este é apenas um pequeno gesto para homenagear aqueles que contribuíram com o IME-USP.
+
 
         <br>
         

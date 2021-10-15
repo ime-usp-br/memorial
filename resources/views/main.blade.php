@@ -1,99 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memorial</title>
-    <link rel="stylesheet" href="{{asset('site/style.css')}}">
-    <link rel="stylesheet" href="{{asset('site/landingpage.css')}}">
+    <link rel="stylesheet" href="{{ asset('site/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/landingpage.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css">
 </head>
+
 <body>
     <div id="app">
         <div id="content">
-            <br>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <a href="/" target="_blank" >
-                        <img src="{{ asset("img/logoIme.png") }}">
-                    </a>
+            <div class="container">
+                <div class="row p-3">
+                    <div class="col-10">
+                        <a href="/">
+                            <img src="{{ asset('img/logoIme.png') }}">
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <a href="https://www.usp.br">
+                            <img src="{{ asset('img/logoUsp.png') }}" style="float: right;">
+                        </a>
+                    </div>
                 </div>
             </div>
-            <br>
-            <div class="row justify-content-center" style="background-color: #142C68; padding: 10px;">
-                <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" href="/"><i class="cil-home"></i> Página inicial</a>
-                </li>
-                <li class="nav-item">
-                    @if(Auth::user() == null)
-                        <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i> Login</a>
-                    @else
-                        <form action="/logout" method="POST">
-                            @csrf
-                            <button type="submit" class="nav-link text-white btn btn-link"><i class="cil-account-logout"></i> Logout</button>
-                        </form> 
-                    @endif
-                </li>
-                </ul>
+
+            <div class="container-fluid" style="background-color: #142C68; padding: 10px;">
+                <div class="container">
+                    <h3 class="text-center" style="color: #ffffff">Memorial</h3>
+                </div>
             </div>
-            
             <div class="container">
                 @yield('content')
             </div>
         </div>
-        
-        
+
+
 
         <footer id="footer" style="background-color: #142C68; padding: 10px;">
-        <div class="container" >
+            <div class="container">
 
 
-            <div class="row">
-            <div class="col-md-4">
-                <b style="color: #ffffff;">Memorial</b>
+                <div class="row p-3">
+                    <div class="col-10">
+                        <span class="nav-link text-white"><strong>Memorial</strong></span>
+                        <a href="https://www.ime.usp.br" class="nav-link text-white">Instituto de Matemática e
+                            Estatística</a>
+                        <a href="https://www.usp.br" class="nav-link text-white">Universidade de São Paulo</a>
+                    </div>
 
-                <br><a href="http://www.ime.usp.br" style="color: #ffffff;">Instituto de Matemática e Estatística</a>
-                <br><a href="http://www.usp.br" style="color: #ffffff;">Universidade de São Paulo</a>
-                <br><a href="https://uspdev.github.io/" style="color: #ffffff;"><span>&copy; 2021 USPDev</span></a>
+                    <div class="col-2">
 
+                        @if (Auth::user() == null)
+                            <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i>
+                                Login</a>
+                        @else
+                            <form action="/logout" method="POST">
+                                @csrf
+                                <button type="submit" class="nav-link text-white btn btn-link"><i
+                                        class="cil-account-logout"></i> Logout</button>
+                            </form>
+                        @endif
+
+                    </div>
+
+
+                </div>
             </div>
-            </div>
-        </div>
         </footer>
 
-       
 
-        
+
+
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <div class="flash-message">
             @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-                @if(Session::has('alert-' . $msg))
-                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}
-                    <a href="#" class="close" data-dismiss="alert" aria-label="fechar">&times;</a>
-                </p>
+                @if (Session::has('alert-' . $msg))
+                    <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}
+                        <a href="#" class="close" data-dismiss="alert" aria-label="fechar">&times;</a>
+                    </p>
                 @endif
             @endforeach
         </div>
-            
-        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
-        <script src="{{asset('site/jquery.js')}}"></script>
-        <script src="{{asset('site/bootstrap.js')}}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+                integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+                async></script>
+        <script src="{{ asset('site/jquery.js') }}"></script>
+        <script src="{{ asset('site/bootstrap.js') }}"></script>
     </div>
-    
+
 </body>
+
 </html>
-
-
-
-
