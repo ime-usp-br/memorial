@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
+<div class="container-fluid">
 
   @include('homenageados.partials.homenageado') <br>
 
