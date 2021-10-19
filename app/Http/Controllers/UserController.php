@@ -80,7 +80,6 @@ class UserController extends Controller
         $homenageado = Homenageado::find($homenageado_id);
         return view('users.remover_curador',[
             'curadores' => $homenageado->curadores,
-            'roles' => $user->roles(),
             'homenageado_id' => $homenageado_id
         ]);
     }

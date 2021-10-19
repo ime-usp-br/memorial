@@ -37,13 +37,15 @@ class LoginController extends Controller
         $user->codpes = $userSenhaUnica->codpes;
         $user->email = $userSenhaUnica->email;
         $user->name = $userSenhaUnica->nompes;
+        if(env('SENHAUNICA_ADMINS') == $user->codpes) $user->role = 'administrador';
         $user->save();
 
         // bind do dados retornados
         Auth::login($user, true);
         
         if($user->role == 'curador') return redirect("/curador/homenageados/$user->codpes");
-
+       
+    
         return redirect('/');
     }
 
