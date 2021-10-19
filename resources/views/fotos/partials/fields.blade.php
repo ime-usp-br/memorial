@@ -5,7 +5,32 @@
   @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
     <div class="row">
       <div class="col">
-        <a href="/fotos/{{$foto->id}}/edit" class="btn btn-primary">Mudar foto</a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#foto-{{$foto->id}}">Mudar foto</button>
+        <div class="modal fade" id="foto-{{$foto->id}}" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h4 class="modal-title">Mudar foto</h4>
+              </div>
+
+              <div class="modal-body">
+                <form action="/fotos/{{$foto->id}}" enctype="multipart/form-data" method="POST">
+                  @csrf
+                  @method('PATCH')
+                  <?php
+                    $homenageado_id = $foto->homenageado_id;
+                  ?>
+                  @include('fotos.partials.forms')
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        
+
       </div>
       <div class="col">
         <form action="/fotos/{{ $foto->id }} " method="post">

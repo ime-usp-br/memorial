@@ -20,7 +20,7 @@ Mensagem: <br>
                 </option>
             @endif
         @endforeach
-    </select>
+    </select> <br><br>
 @else
     {!! captcha_image_html('MensagemCaptcha') !!}
     <input type="text" id="CaptchaCode" name="CaptchaCode"> <br><br><br>

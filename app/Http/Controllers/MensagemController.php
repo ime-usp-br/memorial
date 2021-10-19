@@ -100,6 +100,7 @@ class MensagemController extends Controller
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$mensagem->homenageado_id])) return redirect("/homenageados/$mensagem->homenageado_id");
 
         $validated = $request->validated();
+
         $mensagem->update($validated);
         request()->session()->flash('Mensagem atualizada com sucesso!');
         return redirect("/homenageados/$mensagem->homenageado_id");

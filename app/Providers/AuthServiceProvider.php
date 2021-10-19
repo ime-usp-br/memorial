@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('administrador', function ($user) {
-            if ($user->role == 'administrador' || env('SENHAUNICA_ADMINS') == $user->codpes) {
+            if ($user->role == 'administrador') {
                 return true;
             }
         });

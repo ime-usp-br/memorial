@@ -1,6 +1,7 @@
 @extends('main')
 @section('content')
 <br>
+
 <form action="/admin/removercurador" method="post">
     @csrf
     <select name="curador">
