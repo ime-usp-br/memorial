@@ -6,39 +6,32 @@
   @include('homenageados.partials.homenageado') <br>
 
   @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
-  <div class="row">
-    <div class="col-3">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit_homenageado">Editar homenageado</button>
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit_homenageado">Editar homenageado</button>
 
-      <div class="modal fade" id="edit_homenageado" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    <div class="modal fade" id="edit_homenageado" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
-              <div class="modal-header">
-                <h4 class="modal-title">Editar homenageado</h4>
-              </div>
+          <div class="modal-header">
+            <h4 class="modal-title">Editar homenageado</h4>
+          </div>
 
-              <div class="modal-body">
-                <form action="/homenageados/{{$homenageado->id}}"  enctype="multipart/form-data" method="POST">
-                  @csrf
-                  @method('patch')
-                  @include('homenageados.partials.form')
-                </form>
-              </div>
-            </div>
+          <div class="modal-body">
+            <form action="/homenageados/{{$homenageado->id}}"  enctype="multipart/form-data" method="POST">
+              @csrf
+              @method('patch')
+              @include('homenageados.partials.form')
+            </form>
+            <br>
+            <form action="/homenageados/{{ $homenageado->id }} " method="POST">
+              @csrf
+              @method('delete')
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar homenageado</button> 
+            </form>
           </div>
         </div>
-
-
+      </div>
     </div>
-    <div class="col-3"> 
-      <form action="/homenageados/{{ $homenageado->id }} " method="POST">
-        @csrf
-        @method('delete')
-        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar homenageado</button> 
-      </form>
-    </div>
-  </div>
   @endif
 
   <br>
@@ -149,6 +142,9 @@
 
   
   
+ 
+
+  @can('administrador')
 
   @if($homenageado->curadores->isNotEmpty())
     Esse homenageado é curado por: <br>
@@ -157,8 +153,7 @@
     @endforeach
   @endif
   <br>
-
-  @can('administrador')
+  
   <div class="row justify-content-start">
     <div class="col-2">
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCurador">Adicionar curador</button>

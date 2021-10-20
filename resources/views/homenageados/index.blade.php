@@ -3,7 +3,20 @@
 @section('content')
 
 
-    <div class="container">
+    <div id="content">
+        <div class="container-fluid" style="background-color: #ffffff; padding: 50px;">
+            <div class="container">
+
+                <p style="color: #4b0082; padding: 50px 100px;"> <strong>“Dê-me uma alavanca e um ponto de apoio e levantarei o mundo”</strong>
+                    <br><em>Arquimedes</em>
+                </p>
+                <p style="color: #4b0082; padding: 0px 100px;" class="justify-text">Assim é a obra de nossos professores, funcionários, alunos e ex-alunos. Cada nome homenageado neste site
+                    representa alguém que faz muita falta e é
+                    lembrado com carinho por colegas, familiares e entes queridos. O imensurável legado daqueles que marcaram a
+                    história do Instituto continua a nos inspirar todos os dias.</p>
+                                    
+            </div>
+        </div>
 
 
         @can('administrador')

@@ -36,7 +36,7 @@
         <form action="/fotos/{{ $foto->id }} " method="post">
           @csrf
           @method('delete')
-          <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar</button> 
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar foto</button> 
         </form>
       </div>
     </div>
