@@ -58,6 +58,7 @@
                                 
                                 <?php 
                                     $homenageado = new App\Models\Homenageado();
+                                    $edit = false;
                                 ?>
                                 <div class="modal-body">
                                     @include('homenageados.create')

@@ -17,14 +17,13 @@
             <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
           </div>
 
+          <?php 
+            $edit = true;
+          ?>
+
           <div class="modal-body">
             @include('homenageados.edit')
-            <br>
-            <form action="/homenageados/{{ $homenageado->id }} " method="POST">
-              @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar homenageado</button> 
-            </form>
+
           </div>
         </div>
       </div>
