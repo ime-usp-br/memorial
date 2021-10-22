@@ -45,5 +45,15 @@
     </div>
     <br>
     <input type="hidden" name="homenageado_id" value="{{ $homenageado_id }}">
-    <button type="submit" class="btn btn-success">Enviar</button> 
+    <div class="btn-group">
+            <button type="submit" class="btn btn-success">Salvar</button>
+            @if($edit)
+            <form action="/mensagems/{{ $mensagem->id }} " method="post">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Excluir</button> 
+            </form>
+            @endif
+    </div>
+    
 </form>

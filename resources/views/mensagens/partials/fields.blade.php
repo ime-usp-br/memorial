@@ -11,7 +11,8 @@
                   <div class="modal-content">
 
                   <div class="modal-header">
-                  <h4 class="modal-title">Editar mensagem</h4>
+                        <h4 class="modal-title">Editar mensagem</h4>
+                        <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
                   </div>
 
                   <?php
@@ -24,12 +25,6 @@
 
                         @include('mensagens.edit')
                         
-                        <br>
-                        <form action="/mensagems/{{ $mensagem->id }} " method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar mensagem</button> 
-                        </form>
                   </div>
                   
 

@@ -14,6 +14,7 @@
 
           <div class="modal-header">
             <h4 class="modal-title">Editar homenageado</h4>
+            <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
           </div>
 
           <div class="modal-body">
@@ -56,6 +57,7 @@
 
               <div class="modal-header">
                 <h4 class="modal-title">Deixar uma mensagem</h4>
+                <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
               </div>
 
               <?php
@@ -95,6 +97,7 @@
 
                   <div class="modal-header">
                     <h4 class="modal-title">Adicionar foto</h4>
+                    <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
                   </div>
 
                   <?php 
@@ -154,6 +157,7 @@
 
             <div class="modal-header">
               <h4 class="modal-title">Adicionar curador</h4>
+              <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -174,6 +178,7 @@
 
             <div class="modal-header">
               <h4 class="modal-title">Remover curador</h4>
+              <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
