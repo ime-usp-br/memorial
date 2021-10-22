@@ -1,9 +1,12 @@
-@extends('main')
-@section('content')
-<br>
 <form action="/admin/novoadmin" method="post">
     @csrf
-    Número USP: <input type="text" name="codpes"> <br>
-    <button type="submit" class="btn btn-success">Enviar</button>
+    <form>
+        <div class="form-group">
+            <label for="codpes">Número USP</label>
+            <input id="codpes" class="form-control" type="text" name="codpes">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </form>
 </form>
-@endsection
+

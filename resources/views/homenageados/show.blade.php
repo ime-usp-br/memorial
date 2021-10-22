@@ -17,11 +17,7 @@
           </div>
 
           <div class="modal-body">
-            <form action="/homenageados/{{$homenageado->id}}"  enctype="multipart/form-data" method="POST">
-              @csrf
-              @method('patch')
-              @include('homenageados.partials.form')
-            </form>
+            @include('homenageados.edit')
             <br>
             <form action="/homenageados/{{ $homenageado->id }} " method="POST">
               @csrf
@@ -69,10 +65,7 @@
               ?>
 
               <div class="modal-body">
-                <form action="/mensagems" method="POST">
-                  @csrf
-                  @include('mensagens.partials.forms')
-                </form>
+                @include('mensagens.create')
               </div>
             </div>
 
@@ -104,16 +97,13 @@
                     <h4 class="modal-title">Adicionar foto</h4>
                   </div>
 
-                  <div class="modal-body">
-                    <form action="/fotos" enctype="multipart/form-data" method="POST">
-                      @csrf
-                      <?php 
+                  <?php 
                         $homenageado_id = $homenageado->id;
                         $foto = new App\Models\Foto();
-                      ?>
-                      
-                      @include('fotos.partials.forms')
-                    </form>
+                  ?>
+
+                  <div class="modal-body">
+                    @include('fotos.create')
                   </div>
                   
                 </div>
@@ -167,12 +157,7 @@
             </div>
 
             <div class="modal-body">
-              <form action="/admin/novocurador" method="post">
-                @csrf
-                Número USP: <input type="text" name="codpes"> <br>
-                <input type="hidden" name="homenageado_id" value="{{$homenageado->id}}">
-                <button class="btn btn-success" type="submit">Enviar</button>
-              </form>
+              @include('users.novocurador')
             </div>
 
           </div>
@@ -196,21 +181,7 @@
               <?php 
                 $curadores = $homenageado->curadores;
               ?>
-              <form action="/admin/removercurador" method="post">
-                @csrf
-                <select name="curador">
-                    <option value="" selected=""> - Selecione  -</option>
-                    @foreach ($curadores as $curador)
-                        <option value="{{$curador->codpes}}">
-                            {{$curador->codpes}}
-                        </option> 
-                    @endforeach
-                </select>
-
-                <input type="hidden" name="homenageado_id" value="{{$homenageado->id}}"> <br><br>
-                
-                <button class="btn btn-danger" type="submit">Remover</button>
-              </form>
+              @include('users.remover_curador')
             </div>
 
           </div>
