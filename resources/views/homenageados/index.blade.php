@@ -4,6 +4,7 @@
 
 
     <div id="content">
+        @if(Auth::user() == null)
         <div class="container-fluid" style="background-color: #ffffff; padding: 50px;">
             <div class="container">
 
@@ -17,6 +18,9 @@
                                     
             </div>
         </div>
+        @endif
+
+        
 
 
         @can('administrador')
@@ -32,11 +36,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form action="/admin/novoadmin" method="post">
-                                        @csrf
-                                        Número USP: <input type="text" name="codpes"> <br>
-                                        <button type="submit" class="btn btn-success">Enviar</button>
-                                    </form>
+                                    @include('users.novoadmin')
                                 </div>
                                 
                             </div>
@@ -58,10 +58,7 @@
                                     $homenageado = new App\Models\Homenageado();
                                 ?>
                                 <div class="modal-body">
-                                    <form action="/homenageados"  enctype="multipart/form-data" method="POST">
-                                        @csrf
-                                        @include('homenageados.partials.form')
-                                    </form>
+                                    @include('homenageados.create')
                                 </div>
                                 
                             </div>

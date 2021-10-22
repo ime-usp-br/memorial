@@ -21,12 +21,9 @@
 
                   
                   <div class="modal-body">
-                        <form action="/mensagems/{{$mensagem->id}}" method="POST">
-                        @csrf
-                        @method('patch')
-                        @include('mensagens.partials.forms')
-                        </form>
 
+                        @include('mensagens.edit')
+                        
                         <br>
                         <form action="/mensagems/{{ $mensagem->id }} " method="post">
                         @csrf

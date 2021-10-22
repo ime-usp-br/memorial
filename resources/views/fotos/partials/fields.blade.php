@@ -14,15 +14,12 @@
                 <h4 class="modal-title">Mudar foto</h4>
               </div>
 
-              <div class="modal-body">
-                <form action="/fotos/{{$foto->id}}" enctype="multipart/form-data" method="POST">
-                  @csrf
-                  @method('PATCH')
-                  <?php
+              <?php
                     $homenageado_id = $foto->homenageado_id;
-                  ?>
-                  @include('fotos.partials.forms')
-                </form>
+              ?>
+
+              <div class="modal-body">
+                @include('fotos.edit')
               </div>
               
             </div>
