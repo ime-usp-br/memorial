@@ -34,7 +34,7 @@
             <div class="container-fluid" style="background-color: #e6e6fa; padding: 10px;">
                 <div class="container">
                     <h4 style="color: #4b0082" class="text-center">Memorial do IME-USP</h4>
-                    <p style="color: #4b0082" class="text-center">Este site é apenas um pequeno gesto para homenagear aqueles que contribuíram com o IME-USP</p>
+                    <p style="color: #4b0082" class="text-center">Este site é apenas um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</p>
 
                     <br>
                     
