@@ -45,5 +45,5 @@
     </div>
     <br>
     <input type="hidden" name="homenageado_id" value="{{ $homenageado_id }}">
-    <button type="submit" class="btn btn-success">Enviar</button> 
+    <button type="submit" class="btn btn-outline-dark">Salvar</button> 
 </form>

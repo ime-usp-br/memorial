@@ -10,9 +10,7 @@
             <div class="modal-dialog" role="document">
                   <div class="modal-content">
 
-                  <div class="modal-header">
-                  <h4 class="modal-title">Editar mensagem</h4>
-                  </div>
+                 
 
                   <?php
                   $homenageado_id = $homenageado->id;
@@ -28,7 +26,7 @@
                         <form action="/mensagems/{{ $mensagem->id }} " method="post">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar mensagem</button> 
+                        <button type="submit" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Apagar</button> 
                         </form>
                   </div>
                   

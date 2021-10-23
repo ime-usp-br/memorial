@@ -6,15 +6,11 @@
   @include('homenageados.partials.homenageado') <br>
 
   @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
-    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit_homenageado">Editar homenageado</button>
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit_homenageado">Editar</button>
 
     <div class="modal fade" id="edit_homenageado" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-
-          <div class="modal-header">
-            <h4 class="modal-title">Editar homenageado</h4>
-          </div>
 
           <div class="modal-body">
             @include('homenageados.edit')
@@ -22,7 +18,7 @@
             <form action="/homenageados/{{ $homenageado->id }} " method="POST">
               @csrf
               @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar homenageado</button> 
+              <button type="submit" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Apagar</button> 
             </form>
           </div>
         </div>
@@ -54,9 +50,6 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
 
-              <div class="modal-header">
-                <h4 class="modal-title">Deixar uma mensagem</h4>
-              </div>
 
               <?php
                 $mensagem = new App\Models\Mensagem();
@@ -137,7 +130,7 @@
   @can('administrador')
 
   @if($homenageado->curadores->isNotEmpty())
-    Esse homenageado é curado por: <br>
+    Curadoria: <br>
     @foreach($homenageado->curadores as $curador)
       {{$curador->name}} <br>
     @endforeach

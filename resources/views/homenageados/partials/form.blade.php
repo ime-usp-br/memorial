@@ -30,5 +30,5 @@
         <input id="foto_perfil" class="form-control" type="file" name="foto_perfil">
     </div>
     <br>
-    <button type="submit" class="btn btn-success">Enviar</button>
+    <button type="submit" class="btn btn-outline-dark">Salvar</button>
 </form>

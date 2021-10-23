@@ -6,7 +6,7 @@
             <input id="codpes" class="form-control" type="text" name="codpes">
         </div>
         <br>
-        <button type="submit" class="btn btn-success">Enviar</button>
+        <button type="submit" class="btn btn-outline-dark">Salvar</button>
     </form>
 </form>
 
