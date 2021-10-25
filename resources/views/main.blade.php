@@ -13,53 +13,55 @@
 
 <body>
     <div id="app">
-        
-    <div id="content">
+
+        <div id="content">
             <div class="container-fluid mainimg">
-               
-               
+
+
                 <div class="container maintxt">
                     <div class="row">
-                    <div class="col-6">
-                        <h1 class="title">Memorial do IME-USP</h1>
-                       
-                         <div style="padding: 10% 30%;">
-                             <p>
-                            <strong>“Dê-me uma alavanca e um ponto de apoio e levantarei o mundo”</strong>
-                            <br><em>Arquimedes</em>
-                             </p>
-                         </div>
+                        <div class="col-6">
+                            <h1 class="title">Memorial do IME-USP</h1>
 
-                        <div style="margin: 0 0 50px 0">
-                            <p>Assim é a obra de nossos professores, funcionários, alunos e ex-alunos. Cada nome homenageado neste site
-                           representa alguém que faz muita falta e é
-                           lembrado com carinho por colegas, familiares e entes queridos. O imensurável legado daqueles que marcaram a
-                           história do Instituto continua a nos inspirar todos os dias.</p>
+                            <div style="padding: 10% 30%;">
+                                <p>
+                                    <strong>“Dê-me uma alavanca e um ponto de apoio e levantarei o mundo”</strong>
+                                    <br><em>Arquimedes</em>
+                                </p>
+                            </div>
+
+                            <div style="margin: 0 0 50px 0">
+                                <p>Assim é a obra de nossos professores, funcionários, alunos e ex-alunos. Cada nome
+                                    homenageado neste site
+                                    representa alguém que faz muita falta e é
+                                    lembrado com carinho por colegas, familiares e entes queridos. O imensurável legado
+                                    daqueles que marcaram a
+                                    história do Instituto continua a nos inspirar todos os dias.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-2 offset-4">
+
+                            @if (Auth::user() == null)
+                                <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i>
+                                    Login</a>
+                            @else
+                                <form action="/logout" method="POST">
+                                    @csrf
+                                    <button type="submit" class="nav-link btn btn-link text-white"><i
+                                            class="cil-account-logout"></i> Logout</button>
+                                </form>
+                            @endif
+
                         </div>
                     </div>
 
-                <div class="col-2 offset-4">
-
-                    @if (Auth::user() == null)
-                        <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i>
-                            Login</a>
-                    @else
-                        <form action="/logout" method="POST">
-                            @csrf
-                            <button type="submit" class="nav-link btn btn-link text-white"><i
-                                    class="cil-account-logout"></i> Logout</button>
-                        </form>
-                    @endif
-
                 </div>
-            </div>
-                
-                </div>	
-            
 
-            
-        
-    </div>
+
+
+
+            </div>
 
 
 
@@ -70,30 +72,28 @@
 
 
 
-        <footer id="footer">
-            
+        <footer id="footer" class="bg-footer">
+
             <div class="container">
-             
-                    <div class="row p-3">
-                        <div class="col-10">
-                            <a href="/">
-                                <img src="{{ asset('img/logoIme.png') }}">
-                            </a>
-                        </div>
-                        <div class="col-2">
-                            <a href="https://www.usp.br">
-                                <img src="{{ asset('img/logoUsp.png') }}" style="float: right;">
-                            </a>
-                        </div>
+
+                <div class="row p-3">
+                    <div class="col-10">
+                        <a href="/">
+                            <img src="{{ asset('img/logoIme.png') }}">
+                        </a>
                     </div>
-              
-    
-                    <div class="row p-3">
-                   
+                    <div class="col-2">
+                        <a href="https://www.usp.br">
+                            <img src="{{ asset('img/logoUsp.png') }}" style="float: right;">
+                        </a>
+                    </div>
                 </div>
 
-                <p><strong>Memorial do IME-USP</strong> <br>Um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</p>
-
+                <div class="row p-3">
+                    <div class="col-12">
+                        <p><strong>Memorial do IME-USP</strong> 
+                            <br><small>Um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</small></p>
+                    </div>
                 </div>
             </div>
         </footer>

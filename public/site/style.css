@@ -12458,3 +12458,9 @@ textarea.form-control-lg {
    padding: 2rem;
      
 }
+
+
+.bg-footer {
+  background-color: #6997cb;
+  color: #142c68;
+}
