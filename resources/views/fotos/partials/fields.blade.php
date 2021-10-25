@@ -12,6 +12,7 @@
 
               <div class="modal-header">
                 <h4 class="modal-title">Mudar foto</h4>
+                <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
               </div>
 
               <?php

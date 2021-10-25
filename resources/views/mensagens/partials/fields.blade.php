@@ -10,10 +10,13 @@
             <div class="modal-dialog" role="document">
                   <div class="modal-content">
 
+                  <div class="modal-header">
+                  <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+                  </div>
                  
 
                   <?php
-                  $homenageado_id = $homenageado->id;
+                  $homenageado_id = $mensagem->homenageado_id;
                   $edit = true;
                   ?>
 
@@ -22,12 +25,6 @@
 
                         @include('mensagens.edit')
                         
-                        <br>
-                        <form action="/mensagems/{{ $mensagem->id }} " method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Apagar</button> 
-                        </form>
                   </div>
                   
 

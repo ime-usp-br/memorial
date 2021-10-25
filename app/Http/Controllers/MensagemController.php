@@ -112,13 +112,18 @@ class MensagemController extends Controller
      * @param  \App\Models\Mensagem  $mensagem
      * @return \Illuminate\Http\Response
      */
+    public function delete($mensagem_id){
+        $msg = Mensagem::find($mensagem_id);
+        $homenageado_id = $msg->homenageado_id;
+        $this->destroy($msg);
+        return redirect("/homenageados/$homenageado_id");
+    }
+
     public function destroy(Mensagem $mensagem)
     {
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$mensagem->homenageado_id])) return redirect("/homenageados/$mensagem->homenageado_id");
-
-        $homenageado_id = $mensagem->homenageado_id;
-        $mensagem->delete();
-        return redirect("/homenageados/$homenageado_id");
+        
+        $mensagem->delete();   
     }
 
     public function formValidarMensagem($msg_id){

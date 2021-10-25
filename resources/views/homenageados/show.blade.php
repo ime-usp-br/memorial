@@ -11,15 +11,17 @@
     <div class="modal fade" id="edit_homenageado" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+          </div>
+
+          <?php 
+            $edit = true;
+          ?>
+
 
           <div class="modal-body">
             @include('homenageados.edit')
-            <br>
-            <form action="/homenageados/{{ $homenageado->id }} " method="POST">
-              @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Apagar</button> 
-            </form>
           </div>
         </div>
       </div>
@@ -50,6 +52,10 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
 
+
+              <div class="modal-header">
+              <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+              </div>
 
               <?php
                 $mensagem = new App\Models\Mensagem();
@@ -88,6 +94,7 @@
 
                   <div class="modal-header">
                     <h4 class="modal-title">Adicionar foto</h4>
+                    <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
                   </div>
 
                   <?php 
@@ -147,6 +154,7 @@
 
             <div class="modal-header">
               <h4 class="modal-title">Adicionar curador</h4>
+              <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -167,6 +175,7 @@
 
             <div class="modal-header">
               <h4 class="modal-title">Remover curador</h4>
+              <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">

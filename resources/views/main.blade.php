@@ -63,7 +63,7 @@
 
 
 
-            <div class="container" style="margin-bottom: 30px; margin-top: 30px">
+            <div class="container" style="margin-bottom: 100px; margin-top: 30px">
                 @yield('content')
             </div>
         </div>
