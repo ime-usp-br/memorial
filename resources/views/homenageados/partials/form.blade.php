@@ -29,15 +29,5 @@
         <input id="foto_perfil" class="form-control" type="file" name="foto_perfil">
     </div>
     <br>
-    <div class="btn-group">
-        <button type="submit" class="btn btn-success">Salvar</button>
-        @if($edit)
-        <form action="/homenageados/{{ $homenageado->id }} " method="POST">
-              @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Excluir</button> 
-        </form>
-        @endif
-    </div>
-    
+    <button type="submit" class="btn btn-outline-dark">Salvar</button>
 </form>

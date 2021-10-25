@@ -13,69 +13,86 @@
 
 <body>
     <div id="app">
-        <div id="content">
-            <div class="container-fluid" style="background-color: #e6e6fa; padding: 10px;">
-            <div class="container">
-                <div class="row p-3">
-                    <div class="col-10">
-                        <a href="/">
-                            <img src="{{ asset('img/logoIme.png') }}">
-                        </a>
+        
+    <div id="content">
+            <div class="container-fluid mainimg">
+               
+               
+                <div class="container maintxt">
+                    <div class="row">
+                    <div class="col-6">
+                        <h1 class="title">Memorial do IME-USP</h1>
+                       
+                         <div style="padding: 10% 30%;">
+                             <p>
+                            <strong>“Dê-me uma alavanca e um ponto de apoio e levantarei o mundo”</strong>
+                            <br><em>Arquimedes</em>
+                             </p>
+                         </div>
+
+                        <div style="margin: 0 0 50px 0">
+                            <p>Assim é a obra de nossos professores, funcionários, alunos e ex-alunos. Cada nome homenageado neste site
+                           representa alguém que faz muita falta e é
+                           lembrado com carinho por colegas, familiares e entes queridos. O imensurável legado daqueles que marcaram a
+                           história do Instituto continua a nos inspirar todos os dias.</p>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <a href="https://www.usp.br">
-                            <img src="{{ asset('img/logoUsp.png') }}" style="float: right;">
-                        </a>
-                    </div>
+
+                <div class="col-2 offset-4">
+
+                    @if (Auth::user() == null)
+                        <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i>
+                            Login</a>
+                    @else
+                        <form action="/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link btn btn-link text-white"><i
+                                    class="cil-account-logout"></i> Logout</button>
+                        </form>
+                    @endif
+
                 </div>
             </div>
-            </div>
+                
+                </div>	
+            
 
-            <div class="container-fluid" style="background-color: #e6e6fa; padding: 10px;">
-                <div class="container">
-                    <h4 style="color: #4b0082" class="text-center">Memorial do IME-USP</h4>
-                    <p style="color: #4b0082" class="text-center">Este site é apenas um pequeno gesto para homenagear aqueles que contribuíram com o IME-USP</p>
-
-                    <br>
-                    
-                  
-                </div>
-            </div>
+            
+        
+    </div>
 
 
 
-            <div class="container" style="margin-bottom: 100px; margin-top: 20px">
+            <div class="container" style="margin-bottom: 100px; margin-top: 30px">
                 @yield('content')
             </div>
         </div>
 
 
 
-        <footer id="footer" style="background-color: #142C68; padding: 10px;">
+        <footer id="footer">
+            
             <div class="container">
-                <div class="row p-3">
-                    <div class="col-10">
-                        <span class="nav-link text-white"><strong>Memorial</strong></span>
-                        <a href="https://www.ime.usp.br" class="nav-link text-white">Instituto de Matemática e
-                            Estatística</a>
-                        <a href="https://www.usp.br" class="nav-link text-white">Universidade de São Paulo</a>
+             
+                    <div class="row p-3">
+                        <div class="col-10">
+                            <a href="/">
+                                <img src="{{ asset('img/logoIme.png') }}">
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            <a href="https://www.usp.br">
+                                <img src="{{ asset('img/logoUsp.png') }}" style="float: right;">
+                            </a>
+                        </div>
                     </div>
+              
+    
+                    <div class="row p-3">
+                   
+                </div>
 
-                    <div class="col-2">
-
-                        @if (Auth::user() == null)
-                            <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i>
-                                Login</a>
-                        @else
-                            <form action="/logout" method="POST">
-                                @csrf
-                                <button type="submit" class="nav-link text-white btn btn-link"><i
-                                        class="cil-account-logout"></i> Logout</button>
-                            </form>
-                        @endif
-
-                    </div>
-
+                <p><strong>Memorial do IME-USP</strong> <br>Um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</p>
 
                 </div>
             </div>
