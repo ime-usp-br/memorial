@@ -22,10 +22,12 @@ use App\Http\Requests\MensagemRequest;
 
 Route::get('/', [HomenageadoController::class, 'index']);
 Route::resource('/homenageados',HomenageadoController::class);
+Route::get('/homenageados/delete/{homenageado_id}', [HomenageadoController::class, 'delete']);
 Route::resource('/fotos', FotoController::class);
 Route::get('/fotos/create/{homenageado_id}', [FotoController::class, 'create']);
 Route::resource('/mensagems', MensagemController::class);
 Route::get('/mensagems/create/{homenageado_id}', [MensagemController::class, 'create']);
+Route::get('/mensagems/delete/{mensagem_id}', [MensagemController::class, 'delete']);
 
 // Rotas para login
 Route::get('login',[LoginController::class, 'redirectToProvider'])->name('login');

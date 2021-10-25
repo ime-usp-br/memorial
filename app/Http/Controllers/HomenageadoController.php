@@ -149,6 +149,12 @@ class HomenageadoController extends Controller
         return redirect("/homenageados/{$homenageado->id}");
     }
 
+    public function delete($homenageado_id){
+        $homenageado = Homenageado::find($homenageado_id);
+        $this->destroy($homenageado);
+        return redirect("/");
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -168,6 +174,6 @@ class HomenageadoController extends Controller
             $homenageado->curadores()->detach($curador);
         }
         $homenageado->delete();
-        return redirect("/");
+
     }
 }

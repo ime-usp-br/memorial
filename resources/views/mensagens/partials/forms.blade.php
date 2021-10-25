@@ -45,5 +45,11 @@
     </div>
     <br>
     <input type="hidden" name="homenageado_id" value="{{ $homenageado_id }}">
-    <button type="submit" class="btn btn-outline-dark">Salvar</button> 
+    <div class="btn-group">
+        <button type="submit" class="btn btn-outline-dark">Salvar</button>
+        @if($edit)
+        <a href="/mensagems/delete/{{ $mensagem->id }}" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Apagar</a>
+        @endif
+    </div>
+    
 </form>

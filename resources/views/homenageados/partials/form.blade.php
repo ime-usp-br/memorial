@@ -29,5 +29,11 @@
         <input id="foto_perfil" class="form-control" type="file" name="foto_perfil">
     </div>
     <br>
-    <button type="submit" class="btn btn-outline-dark">Salvar</button>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-outline-dark">Salvar</button>
+        @if($edit)
+        <a href="/homenageados/delete/{{ $homenageado->id }}" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Apagar</a> 
+        @endif
+    </div>
+
 </form>
