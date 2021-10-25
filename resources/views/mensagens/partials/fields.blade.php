@@ -10,6 +10,9 @@
             <div class="modal-dialog" role="document">
                   <div class="modal-content">
 
+                  <div class="modal-header">
+                  <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+                  </div>
                  
 
                   <?php
