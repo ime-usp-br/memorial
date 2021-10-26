@@ -21,7 +21,7 @@
                 <div class="container maintxt">
                     <div class="row">
                         <div class="col-6">
-                            <h1 class="title">Memorial do IME-USP</h1>
+                            <h1 class="title"> <a href="/" class="nav-link text-white">Memorial do IME-USP</a></h1>
 
                             <div style="padding: 10% 30%;">
                                 <p>
@@ -76,6 +76,9 @@
 
             <div class="container">
 
+               
+
+
                 <div class="row p-3">
                     <div class="col-10">
                         <a href="/">
@@ -91,10 +94,11 @@
 
                 <div class="row p-3">
                     <div class="col-12">
-                        <p><strong>Memorial do IME-USP</strong> 
+                        <p class="text-center"><strong>Memorial do IME-USP</strong> 
                             <br><small>Um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</small></p>
                     </div>
                 </div>
+              
             </div>
         </footer>
 

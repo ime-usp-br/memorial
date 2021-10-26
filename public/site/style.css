@@ -12434,7 +12434,7 @@ textarea.form-control-lg {
 
 .mainimg {
  
-  background-image: url(/img/girassol2.png);
+  background-image: url(/img/girassol.png);
   min-height: 500px;
 
   /* Center and scale the image nicely */
@@ -12461,6 +12461,11 @@ textarea.form-control-lg {
 
 
 .bg-footer {
-  background-color: #6997cb;
-  color: #142c68;
+  background-image: url(/img/ceu.png);
+  min-height: 200px;
+  /* Center and scale the image nicely */
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  background-size: cover;
+  color: #ffffff;
 }
