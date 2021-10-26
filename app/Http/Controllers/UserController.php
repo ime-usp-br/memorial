@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Homenageado;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -54,6 +55,9 @@ class UserController extends Controller
         if($user->role == 'administrador'){
             request()->session()->flash('alert-info','Este usuário já tem permissão de administrador.');
         }
+        else if($user->souCuradorHomenageado($request->homenageado_id)){
+            request()->session()->flash('alert-info','Este usuário já é curador desse homenageado.');
+        }
         else{
             $user->codpes = $request->codpes;
             $user->name = \Uspdev\Replicado\Pessoa::nomeCompleto($request->codpes);
@@ -73,29 +77,17 @@ class UserController extends Controller
         ]);
     }
 
-    public function formRemoverCurador($homenageado_id){
+
+    public function removerCurador($curador_id, $homenageado_id){
         if(!Gate::allows('administrador')) return redirect("/homenageados/$homenageado_id");
 
-        $user = new User;
+        $user = User::find($curador_id);
         $homenageado = Homenageado::find($homenageado_id);
-        return view('users.remover_curador',[
-            'curadores' => $homenageado->curadores,
-            'homenageado_id' => $homenageado_id
-        ]);
-    }
-
-    public function removerCurador(Request $request){
-        $request->validate([
-            'curador' => 'required|integer|codpes',
-        ]);
-
-        $user = User::where('codpes',$request->curador)->first();
-        $homenageado = Homenageado::find($request->homenageado_id);
 
         $homenageado->curadores()->detach($user);
         $user->role = 'none';
 
         $user->save();
-        return redirect("/homenageados/$request->homenageado_id");
+        return redirect("/homenageados/$homenageado_id");
     }
 }

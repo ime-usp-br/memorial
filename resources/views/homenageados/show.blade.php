@@ -39,6 +39,11 @@
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos</button>  
     </li>
+    @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="curadoria-tab" data-bs-toggle="tab" data-bs-target="#curadoria" type="button" role="tab" aria-controls="curadoria" aria-selected="false">Curadoria</button>
+    </li>
+    @endif
   </ul>
 
   <div class="container-fluid">
@@ -127,6 +132,39 @@
         </div>
         
       </div>
+
+      @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
+      <div class="tab-pane" id="curadoria" role="tabpanel" aria-labelledby="curadoria-tab">
+        <div class="container-fluid" style="margin-top: 10px;">
+          <ul>
+            @foreach($homenageado->curadores as $curador)
+              <li>@include('users.curadores.partials.curador') </li>
+            @endforeach
+          </ul>
+
+          <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addCurador">Adicionar curador</button>
+
+          <div class="modal fade" id="addCurador" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                  @include('users.novocurador')
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+    
+        </div>
+      </div>
+      @endif
     </div>
   </div>
 
@@ -134,65 +172,14 @@
   
  
 
-  @can('administrador')
-
-  @if($homenageado->curadores->isNotEmpty())
-    Curadoria: <br>
-    @foreach($homenageado->curadores as $curador)
-      {{$curador->name}} <br>
-    @endforeach
+  @if(Auth::user() == null)
+    @if($homenageado->curadores->isNotEmpty())
+      <strong>Curadoria:</strong>  <br>
+      @foreach($homenageado->curadores as $curador)
+        {{$curador->name}} <br>
+      @endforeach
+    @endif
   @endif
-  <br>
-  
-  <div class="row justify-content-start">
-    <div class="col-2">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCurador">Adicionar curador</button>
-
-      <div class="modal fade" id="addCurador" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <h4 class="modal-title">Adicionar curador</h4>
-              <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              @include('users.novocurador')
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="col-2"> 
-      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeCurador">Remover curador</button> <br>
-
-      <div class="modal fade" id="removeCurador" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <h4 class="modal-title">Remover curador</h4>
-              <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-
-              <?php 
-                $curadores = $homenageado->curadores;
-              ?>
-              @include('users.remover_curador')
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div> 
-  @endcan
 
 </div>
 @endsection

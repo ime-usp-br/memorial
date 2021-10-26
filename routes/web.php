@@ -43,8 +43,7 @@ Route::get('/admin/novocurador/{homenageado_id}', [UserController::class, 'formC
 Route::post('/admin/novocurador', [UserController::class, 'registerCurador']);
 
 //Rotas para remover um curador
-Route::get('/admin/removercurador/{homenageado_id}', [UserController::class, 'formRemoverCurador']);
-Route::post('/admin/removercurador', [UserController::class, 'removerCurador']);
+Route::get('/admin/removercurador/{curador_id}/{homenageado_id}', [UserController::class, 'removerCurador']);
 
 Route::get('/curador/homenageados/{curador_codpes}', [UserController::class, 'showHomenageadosCurador']);
 
