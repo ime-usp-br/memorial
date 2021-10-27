@@ -51,7 +51,16 @@
                                     <button type="submit" class="nav-link btn btn-link text-white"><i
                                             class="cil-account-logout"></i> Logout</button>
                                 </form>
+
+
+                                <a class="btn btn-link text-white text-decoration-none"><i class="cil-group"></i> Administradores</a>
+
+                                <a class="btn btn-link text-white text-decoration-none"><i class="cil-user-plus"></i> Homenageados</a>
+
+
                             @endif
+
+
 
                         </div>
                     </div>
