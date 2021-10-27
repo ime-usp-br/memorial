@@ -53,11 +53,12 @@
                                 </form>
 
 
-                                <a class="btn btn-link text-white text-decoration-none"><i class="cil-group"></i> Administradores</a>
+                                <a href="/admin" class="btn btn-link text-white text-decoration-none"><i class="cil-group"></i> Administradores</a>
 
-                                <a class="btn btn-link text-white text-decoration-none"><i class="cil-user-plus"></i> Homenageados</a>
+                                <button class="btn btn-link text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#addHomenageado"><i class="cil-user-plus"></i> Homenageados</button>
 
 
+                                
                             @endif
 
 
@@ -76,7 +77,29 @@
 
             <div class="container" style="margin-bottom: 100px; margin-top: 30px">
                 @yield('content')
+
+                <div class="modal fade" id="addHomenageado" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">Adicionar homenageado</h4>
+                                <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+                            </div>
+                            
+                            <?php 
+                                $homenageado = new App\Models\Homenageado();
+                                $edit = false;
+                            ?>
+                            <div class="modal-body">
+                                @include('homenageados.create')
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
+            
         </div>
 
 

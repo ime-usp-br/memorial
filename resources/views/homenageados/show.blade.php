@@ -34,21 +34,21 @@
 
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="mensagens-tab" data-bs-toggle="tab" data-bs-target="#mensagens" type="button" role="tab" aria-controls="mensagens" aria-selected="true">Mensagens</button>
+      <button class="nav-link @if($tabId ?? 'mensagem' == 'mensagem') active @endif" id="mensagens-tab" data-bs-toggle="tab" data-bs-target="#mensagens" type="button" role="tab" aria-controls="mensagens" aria-selected="true">Mensagens</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos</button>  
+      <button class="nav-link {{ session()->get('tabId') === 'fotos' ? 'active' : '' }}'" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos</button>  
     </li>
     @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="curadoria-tab" data-bs-toggle="tab" data-bs-target="#curadoria" type="button" role="tab" aria-controls="curadoria" aria-selected="false">Curadoria</button>
+      <button class="nav-link @if($tabId ?? 'mensagem' == 'curadoria') active @endif" id="curadoria-tab" data-bs-toggle="tab" data-bs-target="#curadoria" type="button" role="tab" aria-controls="curadoria" aria-selected="false">Curadoria</button>
     </li>
     @endif
   </ul>
 
   <div class="container-fluid">
     <div class="tab-content">
-      <div class="tab-pane active" id="mensagens" role="tabpanel" aria-labelledby="mensagens-tab">
+      <div class="tab-pane @if($tabId ?? 'mensagem'=='mensagem') active @endif" id="mensagens" role="tabpanel" aria-labelledby="mensagens-tab">
         <div class="container-fluid" style="margin-top: 10px;  margin-bottom: 10px;">
 
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mensagem">Deixar uma mensagem</button> <br>
@@ -88,7 +88,7 @@
           
         </div>
       </div>
-      <div class="tab-pane" id="fotos" role="tabpanel" aria-labelledby="fotos-tab">
+      <div class="tab-pane {{ session()->get('tabId') === 'fotos' ? 'active' : '' }}'" id="fotos" role="tabpanel" aria-labelledby="fotos-tab">
         <div class="container-fluid" style="margin-top: 10px;">
           @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#foto">Adicionar fotos</button>
@@ -134,7 +134,7 @@
       </div>
 
       @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
-      <div class="tab-pane" id="curadoria" role="tabpanel" aria-labelledby="curadoria-tab">
+      <div class="tab-pane @if($tabId ?? 'mensagem' == 'curadoria') active @endif" id="curadoria" role="tabpanel" aria-labelledby="curadoria-tab">
         <div class="container-fluid" style="margin-top: 10px;">
           <ul>
             @foreach($homenageado->curadores as $curador)

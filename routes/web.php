@@ -35,8 +35,9 @@ Route::get('callback', [LoginController::class, 'handleProviderCallback']);
 Route::post('logout',[LoginController::class, 'logout'])->name('logout');
 
 //Rotas para adicionar um novo administrador
-Route::get('/admin/novoadmin', [UserController::class, 'formAdmin']);
+Route::get('/admin', [UserController::class, 'showAdmins']);
 Route::post('/admin/novoadmin', [UserController::class, 'registerAdmin']);
+Route::get('/admin/removerAdmin/{admin_id}', [UserController::class, 'removerAdmin']);
 
 //Rotas para adicionar um novo curador
 Route::get('/admin/novocurador/{homenageado_id}', [UserController::class, 'formCurador']);
