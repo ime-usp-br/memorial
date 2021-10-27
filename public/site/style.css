@@ -12441,9 +12441,7 @@ textarea.form-control-lg {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
-
-
+  filter: grayscale(50%);
 }
 
 .maintxt p {
@@ -12463,6 +12461,8 @@ textarea.form-control-lg {
 .bg-footer {
   background-image: url(/img/ceu.png);
   min-height: 200px;
+  filter: grayscale(50%);
+
   /* Center and scale the image nicely */
   /*background-position: center;*/
   /*background-repeat: no-repeat;*/
