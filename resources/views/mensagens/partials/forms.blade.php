@@ -18,6 +18,7 @@
         <label for="mensagem">Mensagem</label>
         <textarea class="form-control" id="mensagem" name="mensagem" cols="30" rows="10">{{old('mensagem', $mensagem->mensagem)}}</textarea> 
     </div>
+
     <br>
     <div class="form-group">
         @if($edit)

@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function formAdmin(){
-        if(!Gate::allows('administrador')) return redirect('/');
 
-        return view('users.novoadmin');
+    public function showAdmins(){
+        if(!Gate::allows('administrador')) return redirect('/');
+        $user = new User;
+        $admins = $user->admins();
+        return view('users.admin', [
+            'admins' => $admins
+        ]);
     }
 
     public function registerAdmin(Request $request){
@@ -30,7 +34,17 @@ class UserController extends Controller
         $user->email = \Uspdev\Replicado\Pessoa::email($request->codpes);
         $user->role = 'administrador';
         $user->save();
-        return redirect('/');
+        return redirect('/admin');
+    }
+
+    public function removerAdmin($admin_id){
+        if(!Gate::allows('administrador')) return redirect()->back();
+
+        $user = User::find($admin_id);
+        $user->role = 'none';
+
+        $user->save();
+        return redirect('/admin');
     }
 
     public function formCurador($homenageado_id){
@@ -67,7 +81,7 @@ class UserController extends Controller
             $user->homenageados()->attach($homenageado);
         }
 
-        return redirect("/homenageados/{$homenageado->id}");
+        return redirect("/homenageados/{$homenageado->id}/curadoria");
     }
 
     public function showHomenageadosCurador($curador_codpes){
