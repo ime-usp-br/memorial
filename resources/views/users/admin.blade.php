@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<strong><h4>Administradores:</h4></strong>
+<strong><h4>Administradores</h4></strong>
 
 <ul>
     @foreach($admins as $admin)
