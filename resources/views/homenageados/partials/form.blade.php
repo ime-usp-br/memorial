@@ -6,12 +6,12 @@
     <br>
     <div class="form-group">
         <label for="data_nascimento">Data de nascimento</label>
-        <input class="form-control" id="data_nascimento" type="text" name="data_nascimento" value="{{old('data_nascimento', (new Datetime($homenageado->data_nascimento))->format('d/m/Y'))}}">
+        <input class="form-control" id="data_nascimento" type="text" name="data_nascimento" value="{{old('data_nascimento', $data_nascimento)}}">
     </div>
     <br>
     <div class="form-group">
         <label for="data_falecimento">Data de falecimento</label>
-        <input class="form-control" id="data_falecimento" type="text" name="data_falecimento" value="{{old('data_falecimento', (new Datetime($homenageado->data_falecimento))->format('d/m/Y'))}}">
+        <input class="form-control" id="data_falecimento" type="text" name="data_falecimento" value="{{old('data_falecimento', $data_falecimento)}}">
     </div>
     <br>
     <div class="form-group">
