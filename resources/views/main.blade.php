@@ -90,6 +90,8 @@
                             <?php 
                                 $homenageado = new App\Models\Homenageado();
                                 $edit = false;
+                                $data_nascimento = '';
+                                $data_falecimento = '';
                             ?>
                             <div class="modal-body">
                                 @include('homenageados.create')
