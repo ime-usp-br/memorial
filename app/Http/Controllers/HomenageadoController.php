@@ -69,7 +69,7 @@ class HomenageadoController extends Controller
         if($validated['data_falecimento'] == null)
             $homenageado['data_falecimento'] = null;
         else
-            $homenageado['data_falecimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_nascimento'])->format('Y-m-d');
+            $homenageado['data_falecimento'] = DateTime::createFromFormat('d/m/Y', $validated['data_falecimento'])->format('Y-m-d');
 
         $homenageado['funcao'] = $validated['funcao'];
         $homenageado['biografia'] = $validated['biografia'];
