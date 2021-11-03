@@ -53,7 +53,7 @@ class MensagemController extends Controller
         $msg = Mensagem::create($validated);
         $user = new User;
         $homenageado = Homenageado::find($msg->homenageado_id);
-        Mail::send(new mensagemPendente($msg, $homenageado, $user->admins(), $homenageado->curadores()));
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$msg->homenageado_id])) Mail::send(new mensagemPendente($msg, $homenageado, $user->admins(),$homenageado->curadores()));
         request()->session()->flash('alert-info', 'Mensagem aguardando validação');
         return redirect("/homenageados/$msg->homenageado_id");
     }
