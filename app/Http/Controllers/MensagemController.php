@@ -47,9 +47,6 @@ class MensagemController extends Controller
     public function store(MensagemRequest $request)
     {
         $validated = $request->validated();
-        $request->validate([
-            'CaptchaCode' => 'required|valid_captcha'
-        ]);
         $msg = Mensagem::create($validated);
         $user = new User;
         $homenageado = Homenageado::find($msg->homenageado_id);
