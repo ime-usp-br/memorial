@@ -2,7 +2,7 @@
       <div class="card-body">
             <h5 class="card-title">{{$mensagem->nome}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{$mensagem->instituicao}}</h6>
-            <p class="card-text" style="font-size: 20px;">{{$mensagem->mensagem}}</p>
+            <p class="card-text">{{$mensagem->mensagem}}</p>
             @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
             <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit-{{$mensagem->id}}">Editar</button>
 
