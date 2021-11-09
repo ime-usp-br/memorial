@@ -46,9 +46,7 @@ class FotoController extends Controller
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$request->homenageado_id])) return redirect("/homenageados/$request->homenageado_id");
 
         $validated = $request->validated();
-        $img = $request->file('foto');
-        $img_name = $img->getClientOriginalName();
-        $validated['caminho'] = $request->file('foto')->store('/fotosHomenageados', ['disk' => 'fotosHomenageados']);
+        $validated['caminho'] = $request->file('foto')->store('.');
         $validated['foto_perfil'] = false;
         $foto = Foto::create($validated);
         return redirect("/homenageados/$foto->homenageado_id");
