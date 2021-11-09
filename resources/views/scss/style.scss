@@ -19,6 +19,7 @@
 .card{
     margin-bottom: 10px;
     display: inline-block;
+    -webkit-column-break-inside: avoid;
 }
 
 .card-columns {

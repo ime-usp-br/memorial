@@ -12404,6 +12404,7 @@ textarea.form-control-lg {
 .card {
   margin-bottom: 10px;
   display: inline-block;
+  -webkit-column-break-inside: avoid;
 }
 
 @media (min-width: 1200px) and (max-width: 1399.98px) {
@@ -12429,43 +12430,4 @@ textarea.form-control-lg {
     -moz-column-count: 2;
          column-count: 2;
   }
-}
-
-
-.mainimg {
- 
-  background-image: url(/img/girassol.png);
-  min-height: 500px;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: grayscale(40%);
-}
-
-.maintxt p {
-   /*color: #4b0082; */
-   color: #ffffff;
-   text-align: justify;
-   padding: 0px 0px;
-}
-
-.title {
-   color: #ffffff;
-   padding: 2rem;
-     
-}
-
-
-.bg-footer {
-  background-image: url(/img/ceu.png);
-  min-height: 200px;
-  filter: grayscale(40%);
-
-  /* Center and scale the image nicely */
-  /*background-position: center;*/
-  /*background-repeat: no-repeat;*/
-  background-size: cover;
-  color: #ffffff;
 }
