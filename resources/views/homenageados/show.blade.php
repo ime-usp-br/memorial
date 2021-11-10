@@ -17,8 +17,13 @@
 
           <?php 
             $edit = true;
-            $data_nascimento = (new Datetime($homenageado->data_nascimento))->format('d/m/Y');
-            $data_falecimento = (new Datetime($homenageado->data_falecimento))->format('d/m/Y');
+            $data_nascimento = null;
+            $data_falecimento = null;
+            if($homenageado->data_nascimento) 
+              $data_nascimento = (new Datetime($homenageado->data_nascimento))->format('d/m/Y');
+
+            if($homenageado->data_falecimento) 
+              $data_falecimento = (new Datetime($homenageado->data_falecimento))->format('d/m/Y');
           ?>
 
 

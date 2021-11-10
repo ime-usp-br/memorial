@@ -76,6 +76,26 @@
 
 
             <div class="container" style="margin-bottom: 100px; margin-top: 30px">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <div class="flash-message">
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                        @if (Session::has('alert-' . $msg))
+                            <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}
+                                <a href="#" class="close" data-bs-dismiss="alert" aria-label="fechar">&times;</a>
+                            </p>
+                        @endif
+                    @endforeach
+                </div>
+
                 @yield('content')
 
                 <div class="modal fade" id="addHomenageado" tabindex="-1" role="dialog">
@@ -90,8 +110,8 @@
                             <?php 
                                 $homenageado = new App\Models\Homenageado();
                                 $edit = false;
-                                $data_nascimento = '';
-                                $data_falecimento = '';
+                                $data_nascimento = null;
+                                $data_falecimento = null;
                             ?>
                             <div class="modal-body">
                                 @include('homenageados.create')
@@ -135,29 +155,6 @@
               
             </div>
         </footer>
-
-
-
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <div class="flash-message">
-            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-                @if (Session::has('alert-' . $msg))
-                    <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}
-                        <a href="#" class="close" data-dismiss="alert" aria-label="fechar">&times;</a>
-                    </p>
-                @endif
-            @endforeach
-        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
                 integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"

@@ -47,13 +47,17 @@ class MensagemController extends Controller
     public function store(MensagemRequest $request)
     {
         $validated = $request->validated();
-        $request->validate([
-            'CaptchaCode' => 'required|valid_captcha'
-        ]);
         $msg = Mensagem::create($validated);
         $user = new User;
         $homenageado = Homenageado::find($msg->homenageado_id);
-        Mail::send(new mensagemPendente($msg, $homenageado, $user->admins(), $homenageado->curadores()));
+
+        //apenas manda email se não for curador ou admin
+        //c.c, já coloca a mensagem como aprovada
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$msg->homenageado_id])) Mail::send(new mensagemPendente($msg, $homenageado, $user->admins(),$homenageado->curadores()));
+        else{
+            $msg->estado = "APROVADO";
+            $msg->save();
+        }
         request()->session()->flash('alert-info', 'Mensagem aguardando validação');
         return redirect("/homenageados/$msg->homenageado_id");
     }

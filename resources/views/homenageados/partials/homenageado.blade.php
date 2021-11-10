@@ -3,14 +3,13 @@
         <p class="h2"><strong>{{$homenageado->nome}}</strong></p>
     </div>
 </div>
-<div class="row">
-    <div class="col-4">
-        <img src="/fotos/{{$fotoPerfil->id}}" class="img-fluid" alt="Responsive image"> 
-    </div>
-    <div class="col-8">
-        <p style="text-align: justify">{{$homenageado->biografia}}</p>
-    </div>
+
+<div class="clearfix">
+    <img src="/fotos/{{$fotoPerfil->id}}" class="col-3 float-start" style="margin-right:15px;" alt="Responsive image">
+    <p style="text-align: justify">{{$homenageado->biografia}}</p>
 </div>
+
+
 
 <br>
 
