@@ -583,6 +583,43 @@ progress {
   content: "— ";
 }
 
+.mainimg {
+
+  background-image: url(/img/girassol.png);
+  min-height: 500px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+
+}
+
+.maintxt {
+   /*color: #4b0082; */
+   color: #ffffff;
+   text-align: justify;
+   padding: 0px 0px;
+}
+
+.title {
+   color: #ffffff;
+   padding: 2rem;
+
+}
+
+.bg-footer{
+  background-image: url(/img/ceu.png);
+  min-height: 200px;
+  /* Center and scale the image nicely */
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  background-size: cover;
+  color: #ffffff;
+}
+
 .img-fluid {
   max-width: 100%;
   height: auto;
