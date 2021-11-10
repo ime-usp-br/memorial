@@ -22,7 +22,7 @@ class FotoRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {   
         return [
             'foto' => 'required|image',
             'descricao' => 'nullable',
