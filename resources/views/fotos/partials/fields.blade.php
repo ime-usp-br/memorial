@@ -1,6 +1,6 @@
 
 <div class="figure">
-  <img src="/fotos/{{$foto->id}}" style="width: 350px; height: 350px; object-fit: cover;">
+  <img src="/fotos/{{$foto->id}}" style="width: 350px; height: 350px; object-fit: contain;">
   <figcaption class="figure-caption text-center">{{$foto->descricao}}</figcaption>
   @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
     <div class="row">
