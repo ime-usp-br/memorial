@@ -20,27 +20,25 @@
 
                 <div class="container maintxt">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-8">
                             <h1 class="title"> <a href="/" class="nav-link text-white">Memorial do IME-USP</a></h1>
 
-                            <div style="padding: 10% 30%;">
+                            
                                 <p>
                                     <strong>“Dê-me uma alavanca e um ponto de apoio e levantarei o mundo”</strong>
                                     <br><em>Arquimedes</em>
                                 </p>
-                            </div>
-
-                            <div style="margin: 0 0 50px 0">
                                 <p>Assim é a obra de nossos professores, funcionários, alunos e ex-alunos. Cada nome
                                     homenageado neste site
                                     representa alguém que faz muita falta e é
                                     lembrado com carinho por colegas, familiares e entes queridos. O imensurável legado
                                     daqueles que marcaram a
                                     história do Instituto continua a nos inspirar todos os dias.</p>
-                            </div>
+                            
+
                         </div>
 
-                        <div class="col-2 offset-4">
+                        <div class="col-2 offset-2">
 
                             @if (Auth::user() == null)
                                 <a class="nav-link text-white" href="/login"><i class="cil-account-logout"></i>
@@ -130,25 +128,9 @@
 
             <div class="container">
 
-               
-
-
-                <div class="row p-3">
-                    <div class="col-10">
-                        <a href="/">
-                            <img src="{{ asset('img/logoIme.png') }}">
-                        </a>
-                    </div>
-                    <div class="col-2">
-                        <a href="https://www.usp.br">
-                            <img src="{{ asset('img/logoUsp.png') }}" style="float: right;">
-                        </a>
-                    </div>
-                </div>
-
                 <div class="row p-3">
                     <div class="col-12">
-                        <p class="text-center"><strong>Memorial do IME-USP</strong> 
+                        <p class="text-center"><strong>Memorial do <a href="https://www.ime.usp.br" class="text-white" style="text-decoration:none">IME-USP</a></strong> 
                             <br><small>Um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</small></p>
                     </div>
                 </div>
