@@ -606,7 +606,8 @@ progress {
 
 .title {
    color: #ffffff;
-   padding: 2rem;
+   padding-top: 2rem;
+   padding-bottom: 2rem;
    font-family: 'Cinzel', serif;
 }
 
