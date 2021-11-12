@@ -586,7 +586,7 @@ progress {
 .mainimg {
 
   background-image: url(/img/girassol.png);
-  min-height: 500px;
+  min-height: 350px;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -613,7 +613,7 @@ progress {
 
 .bg-footer{
   background-image: url(/img/ceu.png);
-  min-height: 200px;
+  /*min-height: 200px;*/
   /* Center and scale the image nicely */
   /*background-position: center;*/
   /*background-repeat: no-repeat;*/
