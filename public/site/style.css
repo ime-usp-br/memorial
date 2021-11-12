@@ -610,6 +610,8 @@ progress {
    font-family: 'Cinzel', serif;
 }
 
+
+
 .bg-footer{
   background-image: url(/img/ceu.png);
   /*min-height: 200px;*/
@@ -618,6 +620,13 @@ progress {
   /*background-repeat: no-repeat;*/
   background-size: cover;
   color: #ffffff;
+}
+
+.titlefooter {
+  color: #ffffff;
+  padding: 2rem;
+  font-family: 'Cinzel', serif;
+  font-size: medium;
 }
 
 .img-fluid {

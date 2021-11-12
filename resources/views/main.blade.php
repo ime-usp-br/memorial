@@ -133,7 +133,7 @@
 
                 <div class="row p-3">
                     <div class="col-12">
-                        <p class="text-center"><strong>Memorial do <a href="https://www.ime.usp.br" class="text-white" style="text-decoration:none">IME-USP</a></strong> 
+                        <p class="text-center"><strong class="titlefooter">Memorial do <a href="https://www.ime.usp.br" class="text-white" style="text-decoration:none">IME-USP</a></strong> 
                             <br><small>Um pequeno gesto para homenagear aqueles que contribuíram com o Instituto</small></p>
                     </div>
                 </div>
