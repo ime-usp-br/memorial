@@ -5,13 +5,12 @@
   @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
     <div class="row">
       <div class="col">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#foto-{{$foto->id}}">Mudar foto</button>
+        <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#foto-{{$foto->id}}">Substituir</button>
         <div class="modal fade" id="foto-{{$foto->id}}" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
 
               <div class="modal-header">
-                <h4 class="modal-title">Mudar foto</h4>
                 <button type="button"  data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
               </div>
 
@@ -34,7 +33,7 @@
         <form action="/fotos/{{ $foto->id }} " method="post">
           @csrf
           @method('delete')
-          <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?');">Apagar foto</button> 
+          <button type="submit" class="btn btn-outline-dark" onclick="return confirm('Tem certeza?');">Excluir</button> 
         </form>
       </div>
     </div>
