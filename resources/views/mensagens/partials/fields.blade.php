@@ -31,7 +31,6 @@
 
             </div>
             </div>
-            <a class="btn btn-outline-dark" href="/mensagems/mandarWebMaster/{{$mensagem->id}}">Mandar para WebMaster</a>
             @endif  
       </div>
 </div>

@@ -51,5 +51,3 @@ Route::get('/curador/homenageados/{curador_codpes}', [UserController::class, 'sh
 Route::get('/mensagems/validar/{msg_id}', [MensagemController::class, 'formValidarMensagem']);
 Route::get('/mensagems/validar/{msg_id}/{validacao}', [MensagemController::class, 'validarMensagem']);
 
-Route::get('/mensagems/mandarWebMaster/{msg_id}', [MensagemController::class, 'mandarWebMaster']);
-
