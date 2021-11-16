@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MensagemRequest;
 use App\Mail\mensagemPendente;
+use App\Mail\mensagemWebMaster;
 use App\Models\Mensagem;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -150,5 +151,11 @@ class MensagemController extends Controller
             $mensagem->save();
         } 
         return redirect("/homenageados/$homenageado_id");
+    }
+
+    public function mandarWebMaster($msg_id){
+        $msg = Mensagem::find($msg_id);
+        Mail::send(new mensagemWebMaster($msg));
+        return back();
     }
 }
