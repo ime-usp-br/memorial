@@ -39,6 +39,7 @@ class mensagemPendente extends Mailable
         foreach($this->curadores as $curador){
             if($curador) $this->to($curador->email, $curador->name);
         }
+        $this->bcc("webmaster@ime.usp.br", "WebMaster");
         return $this->view('mail.mensagemPendente', [
             'msg' => $this->msg,
             'homenageado' => $this->homenageado
