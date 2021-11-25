@@ -48,6 +48,5 @@ Route::get('/admin/removercurador/{curador_id}/{homenageado_id}', [UserControlle
 
 Route::get('/curador/homenageados/{curador_codpes}', [UserController::class, 'showHomenageadosCurador']);
 
-Route::get('/mensagems/validar/{msg_id}', [MensagemController::class, 'formValidarMensagem']);
-Route::get('/mensagems/validar/{msg_id}/{validacao}', [MensagemController::class, 'validarMensagem']);
+Route::get('/mensagems/validar/{msg_id}/{token}/{validacao}', [MensagemController::class, 'validarMensagem']);
 
