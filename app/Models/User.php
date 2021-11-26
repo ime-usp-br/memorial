@@ -10,7 +10,7 @@ use \Spatie\Permission\Traits\HasRoles;
 use \Uspdev\SenhaunicaSocialite\Traits\HasSenhaunica;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -47,6 +47,10 @@ class User extends Authenticatable
     public function homenageados(){
         return $this->belongsToMany(Homenageado::class, 'curadores');
     }   
+
+    public function tokens(){
+        return $this->belongsToMany(Mensagem::class, 'tokens')->withPivot(['token', 'expires_in']);
+    }
 
     public function souCuradorHomenageado($homenageado_id){
         foreach($this->homenageados as $homenageado){

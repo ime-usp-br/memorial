@@ -9,7 +9,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Homenageado;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Parser\Tokens;
+use Carbon\Carbon;
 
 class MensagemController extends Controller
 {
@@ -46,6 +49,9 @@ class MensagemController extends Controller
      */
     public function store(MensagemRequest $request)
     {
+        $this->validate($request, [
+            'CaptchaCode'=> 'required|valid_captcha'
+        ]);
         $validated = $request->validated();
         $msg = Mensagem::create($validated);
         $user = new User;
@@ -53,9 +59,24 @@ class MensagemController extends Controller
 
         //apenas manda email se não for curador ou admin
         //c.c, já coloca a mensagem como aprovada
-        if(!Gate::allows('administrador') && !Gate::allows('curador', [$msg->homenageado_id])) Mail::send(new mensagemPendente($msg, $homenageado, $user->admins(),$homenageado->curadores()));
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$msg->homenageado_id])){
+            foreach($user->admins() as $admin){
+                $token = sha1(time()); //criação do token
+                $expireDate = Carbon::now('America/Sao_Paulo')->addDays(2); //data de expiração do token
+                $admin->tokens()->attach($msg, array('token' => $token, 'expires_in' => $expireDate));
+                Mail::send(new mensagemPendente($msg, $homenageado, $admin, $token));
+            }
+            foreach($homenageado->curadores as $curador){
+                $token = sha1(time());
+                $expireDate = Carbon::now('America/Sao_Paulo')->addDays(2);
+                $curador->tokens()->attach($msg, array('token' => $token, 'expires_in' => $expireDate));
+                Mail::send(new mensagemPendente($msg, $homenageado, $curador, $token));
+            }
+        }
         else{
             $msg->estado = "APROVADO";
+            $msg->tipo_aprovacao = 'CRIADA POR RESPONSÁVEL';
+            $msg->aprovador_id = Auth::user()->id;
             $msg->save();
         }
         request()->session()->flash('alert-info', 'Mensagem aguardando validação');
@@ -104,6 +125,10 @@ class MensagemController extends Controller
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$mensagem->homenageado_id])) return redirect("/homenageados/$mensagem->homenageado_id");
 
         $validated = $request->validated();
+        if($mensagem->estado != 'APROVADO' && $validated['estado'] == 'APROVADO'){
+            $validated['tipo_aprovacao'] = 'EDIÇÃO';
+            $validated['aprovador_id'] = Auth::user()->id;
+        }
 
         $mensagem->update($validated);
         request()->session()->flash('Mensagem atualizada com sucesso!');
@@ -119,6 +144,9 @@ class MensagemController extends Controller
     public function delete($mensagem_id){
         $msg = Mensagem::find($mensagem_id);
         $homenageado_id = $msg->homenageado_id;
+        foreach($msg->tokens as $tokenMsg){
+            $msg->tokens()->detach($tokenMsg);
+        }
         $this->destroy($msg);
         return redirect("/homenageados/$homenageado_id");
     }
@@ -130,24 +158,40 @@ class MensagemController extends Controller
         $mensagem->delete();   
     }
 
-    public function formValidarMensagem($msg_id){
+    public function validarMensagem($msg_id, $token, $validacao){
         $mensagem = Mensagem::find($msg_id);
-        return view('mensagens.validarMensagem',[
-            'mensagem' => $mensagem
-        ]);
-    }
-
-    public function validarMensagem($msg_id, $validacao){
-        $mensagem = Mensagem::find($msg_id);
+        $achou = false;
+        $aprovador_id = -1;
+        foreach($mensagem->tokens as $tokenSalvo){
+            if($tokenSalvo->pivot->token == $token){
+                $achou = true;
+                $aprovador_id = $tokenSalvo->id; //$tokenSalvo na verdade é um user
+                break;
+            }
+        }
         $homenageado_id = $mensagem->homenageado_id;
-        if($validacao == 'deletar') $mensagem->delete();
-        else if($validacao == 'aceitar'){  
-            $mensagem->estado = 'APROVADO';
-            $mensagem->save();
+        if($validacao == 'aceitar'){  
+            if($achou){
+                $mensagem->estado = 'APROVADO';
+                $mensagem->tipo_aprovacao = 'TOKEN';
+                $mensagem->aprovador_id = $aprovador_id;
+                $mensagem->save();
+                foreach($mensagem->tokens as $tokenMsg){
+                    $mensagem->tokens()->detach($tokenMsg);
+                }
+            }
+            else{
+                request()->session()->flash('alert-danger', 'Token inválido!');
+            }
         }
         else{
-            $mensagem->estado = 'NEGADO';
-            $mensagem->save();
+            if($achou){
+                $mensagem->estado = 'NEGADO';
+                $mensagem->save();
+            }
+            else{
+                request()->session()->flash('alert-danger', 'Token inválido!');
+            }
         } 
         return redirect("/homenageados/$homenageado_id");
     }

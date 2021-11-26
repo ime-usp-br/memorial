@@ -11,18 +11,18 @@ use Illuminate\Queue\SerializesModels;
 class mensagemPendente extends Mailable
 {
     use Queueable, SerializesModels;
-    private $msg, $admins, $curadores, $homenageado;
+    private $msg, $user, $homenageado, $token;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mensagem, $homenageado, $admins, $curadores)
+    public function __construct($mensagem, $homenageado, $user, $token)
     {
         $this->msg = $mensagem;
-        $this->admins = $admins;
-        $this->curadores = $curadores;
+        $this->user = $user;
         $this->homenageado = $homenageado;
+        $this->token = $token;
     }
 
     /**
@@ -32,17 +32,13 @@ class mensagemPendente extends Mailable
      */
     public function build()
     {
-        $this->subject("Nova mensagem pendente para o homenageado {$this->homenageado->nome}");
-        foreach($this->admins as $admin){
-            $this->to($admin->email, $admin->name);
-        }
-        foreach($this->curadores as $curador){
-            if($curador) $this->to($curador->email, $curador->name);
-        }
-        $this->bcc("webmaster@ime.usp.br", "WebMaster");
+        $this->subject("[ IME-USP ] Nova mensagem pendente no memorial para {$this->homenageado->nome}");
+        $this->to($this->user->email, $this->user->name);
+        //$this->bcc("webmaster@ime.usp.br", "WebMaster");
         return $this->view('mail.mensagemPendente', [
-            'msg' => $this->msg,
-            'homenageado' => $this->homenageado
+            'mensagem' => $this->msg,
+            'homenageado' => $this->homenageado,
+            'token' => $this->token,
         ]);
     }
 }
