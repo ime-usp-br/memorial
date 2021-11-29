@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Models\Mensagem;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +26,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function(){
+            $mensagens = Mensagem::all();
+            foreach($mensagens as $msg){
+                foreach($msg->tokens as $token){
+                    if($token->pivot->expired_in <= Carbon::now()){
+                        echo "Token ". $token->pivot->token . "expirado! Apagando...\n";
+                        $msg->tokens()->detach($token);
+                    }
+                }
+            }
+        });
     }
 
     /**
