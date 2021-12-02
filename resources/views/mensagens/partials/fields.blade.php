@@ -1,4 +1,13 @@
 <div class="card">
+      @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
+            @if($mensagem->estado == "APROVADO")
+            <div class="card-header" style="background-color: green;"></div>
+            @elseif($mensagem->estado == "PENDENTE")
+            <div class="card-header" style="background-color: yellow;"></div>
+            @elseif($mensagem->estado == "NEGADO")
+            <div class="card-header" style="background-color: red;"></div>
+            @endif
+      @endif
       <div class="card-body">
             <p class="card-text">{{$mensagem->mensagem}}</p>
             <p class="text-muted"><i>{{$mensagem->nome}}</i> <br> {{$mensagem->instituicao}}</p>
@@ -12,7 +21,7 @@
                   <div class="modal-header">
                   <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
                   </div>
-                 
+                  
 
                   <?php
                   $homenageado_id = $mensagem->homenageado_id;

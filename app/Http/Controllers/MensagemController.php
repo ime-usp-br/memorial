@@ -51,6 +51,9 @@ class MensagemController extends Controller
     {
         $this->validate($request, [
             'CaptchaCode'=> 'required|valid_captcha'
+        ], [
+            'CaptchaCode.required' => 'O Captcha é obrigatório.',
+            'CaptchaCode.valid_captcha' => 'Texto do captcha inválido. Tente novamente.',
         ]);
         $validated = $request->validated();
         $msg = Mensagem::create($validated);
@@ -172,6 +175,7 @@ class MensagemController extends Controller
         $homenageado_id = $mensagem->homenageado_id;
         if($validacao == 'aceitar'){  
             if($achou){
+                
                 $mensagem->estado = 'APROVADO';
                 $mensagem->tipo_aprovacao = 'TOKEN';
                 $mensagem->aprovador_id = $aprovador_id;
@@ -179,6 +183,7 @@ class MensagemController extends Controller
                 foreach($mensagem->tokens as $tokenMsg){
                     $mensagem->tokens()->detach($tokenMsg);
                 }
+                request()->session()->flash('alert-info', 'Mensagem aprovada.');
             }
             else{
                 request()->session()->flash('alert-danger', 'Token inválido!');
@@ -186,13 +191,14 @@ class MensagemController extends Controller
         }
         else{
             if($achou){
+                request()->session()->flash('alert-info', 'Mensagem negada.');
                 $mensagem->estado = 'NEGADO';
                 $mensagem->save();
             }
             else{
                 request()->session()->flash('alert-danger', 'Token inválido!');
             }
-        } 
+        }
         return redirect("/homenageados/$homenageado_id");
     }
 
