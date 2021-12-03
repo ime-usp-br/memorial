@@ -82,3 +82,27 @@
       column-count: 2;
     }
   }
+
+  .bulletpoint-negado{
+    li::marker {
+      color: red;
+      font-weight: bolder;
+      font-size: 5rem;
+    }
+  }
+
+  .bulletpoint-aprovado{
+    li::marker {
+      color: green;
+      font-weight: bolder;
+      font-size: 5rem;
+    }
+  }
+
+  .bulletpoint-pendente{
+    li::marker {
+      color: yellow;
+      font-weight: bolder;
+      font-size: 5rem;
+    }
+  }
