@@ -87,7 +87,7 @@
     li::marker {
       color: red;
       font-weight: bolder;
-      font-size: 5rem;
+      font-size: 4rem;
     }
   }
 
@@ -95,7 +95,7 @@
     li::marker {
       color: green;
       font-weight: bolder;
-      font-size: 5rem;
+      font-size: 4rem;
     }
   }
 
@@ -103,6 +103,14 @@
     li::marker {
       color: yellow;
       font-weight: bolder;
-      font-size: 5rem;
+      font-size: 4rem;
     }
+  }
+
+
+  .child{
+    display: inline-block;
+    vertical-align: bottom;
+    align-items: center;
+    justify-content: center;
   }

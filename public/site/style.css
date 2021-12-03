@@ -12481,17 +12481,24 @@ textarea.form-control-lg {
 .bulletpoint-negado li::marker {
   color: red;
   font-weight: bolder;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 .bulletpoint-aprovado li::marker {
   color: green;
   font-weight: bolder;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 .bulletpoint-pendente li::marker {
   color: yellow;
   font-weight: bolder;
-  font-size: 5rem;
+  font-size: 4rem;
+}
+
+.child {
+  display: inline-block;
+  vertical-align: bottom;
+  align-items: center;
+  justify-content: center;
 }
