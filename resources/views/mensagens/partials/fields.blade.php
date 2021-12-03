@@ -1,14 +1,27 @@
 <div class="card">
-      @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
-            @if($mensagem->estado == "APROVADO")
-            <div class="card-header" style="background-color: green;"></div>
-            @elseif($mensagem->estado == "PENDENTE")
-            <div class="card-header" style="background-color: yellow;"></div>
-            @elseif($mensagem->estado == "NEGADO")
-            <div class="card-header" style="background-color: red;"></div>
-            @endif
-      @endif
+
       <div class="card-body">
+            @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
+                  @if($mensagem->estado == "APROVADO")
+                  <div class="bulletpoint-aprovado" style="margin: 10px">
+                        <ul>
+                              <li></li>
+                        </ul>
+                  </div>
+                  @elseif($mensagem->estado == "PENDENTE")
+                  <div class="bulletpoint-pendente" style="margin: 10px">
+                        <ul>
+                              <li></li>
+                        </ul>
+                  </div>
+                  @elseif($mensagem->estado == "NEGADO")
+                  <div class="bulletpoint-negado" style="margin: 10px">
+                        <ul>
+                              <li></li>
+                        </ul>
+                  </div>
+                  @endif
+            @endif
             <p class="card-text">{{$mensagem->mensagem}}</p>
             <p class="text-muted"><i>{{$mensagem->nome}}</i> <br> {{$mensagem->instituicao}}</p>
             @if(Gate::allows('administrador') || Gate::allows('curador', [$mensagem->homenageado_id]))
