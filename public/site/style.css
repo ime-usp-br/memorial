@@ -12444,7 +12444,9 @@ textarea.form-control-lg {
 .card {
   margin-bottom: 10px;
   display: inline-block;
-  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+  overflow: hidden;
 }
 
 @media (min-width: 1400px) {

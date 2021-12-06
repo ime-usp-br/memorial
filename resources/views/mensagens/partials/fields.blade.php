@@ -38,7 +38,7 @@
                             <div class="modal-body">
 
                                 @include('mensagens.edit')
-
+                            </div>
 
                                 
                         </div>
