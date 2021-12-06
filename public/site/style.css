@@ -12444,7 +12444,9 @@ textarea.form-control-lg {
 .card {
   margin-bottom: 10px;
   display: inline-block;
-  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+  overflow: hidden;
 }
 
 @media (min-width: 1400px) {
@@ -12476,29 +12478,4 @@ textarea.form-control-lg {
     -moz-column-count: 2;
          column-count: 2;
   }
-}
-
-.bulletpoint-negado li::marker {
-  color: red;
-  font-weight: bolder;
-  font-size: 4rem;
-}
-
-.bulletpoint-aprovado li::marker {
-  color: green;
-  font-weight: bolder;
-  font-size: 4rem;
-}
-
-.bulletpoint-pendente li::marker {
-  color: yellow;
-  font-weight: bolder;
-  font-size: 4rem;
-}
-
-.child {
-  display: inline-block;
-  vertical-align: bottom;
-  align-items: center;
-  justify-content: center;
 }
