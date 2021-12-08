@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container-fluid">
-
   @include('homenageados.partials.homenageado') <br>
 
   @if(Gate::allows('administrador') || Gate::allows('curador', [$homenageado->id]))
