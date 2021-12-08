@@ -82,7 +82,7 @@ class MensagemController extends Controller
             $msg->aprovador_id = Auth::user()->id;
             $msg->save();
         }
-        request()->session()->flash('alert-info', 'Mensagem aguardando validação');
+        $request->session()->flash('alert-info', 'Mensagem aguardando validação');
         return redirect("/homenageados/$msg->homenageado_id");
     }
 
@@ -134,7 +134,7 @@ class MensagemController extends Controller
         }
 
         $mensagem->update($validated);
-        request()->session()->flash('Mensagem atualizada com sucesso!');
+        $request->session()->flash('alert-info','Mensagem atualizada com sucesso!');
         return redirect("/homenageados/$mensagem->homenageado_id");
     }
 
