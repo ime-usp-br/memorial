@@ -79,6 +79,7 @@
 
 
             <div class="container" style="margin-bottom: 100px; margin-top: 30px">
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
