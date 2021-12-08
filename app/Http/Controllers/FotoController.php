@@ -49,6 +49,7 @@ class FotoController extends Controller
         $validated['caminho'] = $request->file('foto')->store('.');
         $validated['foto_perfil'] = false;
         $foto = Foto::create($validated);
+        $request->session()->flash('alert-info','Foto enviada com sucesso.');
         return redirect("/homenageados/$foto->homenageado_id");
     }
 
@@ -97,6 +98,7 @@ class FotoController extends Controller
         Storage::delete($foto->caminho);
 
         $foto->update($validated);
+        $request->session()->flash('alert-info','Foto atualizada com sucesso.');
         return redirect("/homenageados/$foto->homenageado_id");
     }
 
@@ -113,6 +115,7 @@ class FotoController extends Controller
         $homenageado_id = $foto->homenageado_id;
         Storage::delete($foto->caminho);
         $foto->delete();
+        request()->session()->flash('alert-info','Foto excluída com sucesso.');
         return redirect("/homenageados/$homenageado_id");
     }
 }

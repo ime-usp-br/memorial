@@ -67,10 +67,10 @@ class UserController extends Controller
         $homenageado = Homenageado::find($request->homenageado_id);
 
         if($user->role == 'administrador'){
-            request()->session()->flash('alert-info','Este usuário já tem permissão de administrador.');
+            $request->session()->flash('alert-info','Este usuário já tem permissão de administrador.');
         }
         else if($user->souCuradorHomenageado($request->homenageado_id)){
-            request()->session()->flash('alert-info','Este usuário já é curador desse homenageado.');
+            $request->session()->flash('alert-info','Este usuário já é curador desse homenageado.');
         }
         else{
             $user->codpes = $request->codpes;
