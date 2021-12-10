@@ -40,8 +40,7 @@
             @endforeach
         </select>
         @else
-        {!! captcha_image_html('MensagemCaptcha') !!}
-        <input type="text" id="CaptchaCode" name="CaptchaCode"> 
+
         @endif
     </div>
     <br>

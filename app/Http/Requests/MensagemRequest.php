@@ -42,8 +42,6 @@ class MensagemRequest extends FormRequest
             'email.email' => 'Formato de email inválido.',
             'instituicao.required' => 'A instituição é obrigatória.',
             'mensagem.required' => 'A mensagem é obrigatória.',
-            'CaptchaCode.valid_captcha' => 'Texto do captcha incorreto.',
-            'CaptchaCode.required' => 'O Captcha é obrigatório.'
         ];
     }
 }

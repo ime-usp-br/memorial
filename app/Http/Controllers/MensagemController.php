@@ -49,12 +49,6 @@ class MensagemController extends Controller
      */
     public function store(MensagemRequest $request)
     {
-        $this->validate($request, [
-            'CaptchaCode'=> 'required|valid_captcha'
-        ], [
-            'CaptchaCode.required' => 'O Captcha é obrigatório.',
-            'CaptchaCode.valid_captcha' => 'Texto do captcha inválido. Tente novamente.',
-        ]);
         $validated = $request->validated();
         $msg = Mensagem::create($validated);
         $user = new User;

@@ -56,27 +56,34 @@
     <div class="tab-content">
       <div class="tab-pane @if($tabId ?? 'mensagem'=='mensagem') active @endif" id="mensagens" role="tabpanel" aria-labelledby="mensagens-tab">
         <div class="container-fluid" style="margin-top: 10px;  margin-bottom: 10px;">
-<!-- 
+  
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mensagem">Deixar uma mensagem</button> <br>
 
           <div class="modal fade" id="mensagem" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
-            <div class="modal-content"> -->
+            <div class="modal-content">
 
 
-              <!-- <div class="modal-header">
+              <div class="modal-header">
               <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
-              </div> -->
+              </div>
+
+
+              <?php
+                $mensagem = new App\Models\Mensagem();
+                $homenageado_id = $homenageado->id;
+                $edit = false;
+              ?>
 
 
 
-              <!-- <div class="modal-body"> -->
-                
-              <!-- </div>
+              <div class="modal-body">
+                @include('mensagens.create')
+              </div>
             </div>
 
           </div>
-          </div> -->
+          </div>
 
           <div class="card-columns" style="margin-top: 10px;">
             @foreach($homenageado->mensagens as $mensagem)
@@ -86,13 +93,6 @@
             @endforeach
             <br>
           </div>
-
-          <?php
-            $mensagem = new App\Models\Mensagem();
-            $homenageado_id = $homenageado->id;
-            $edit = false;
-          ?>
-          @include('mensagens.create')
           
         </div>
       </div>
