@@ -81,7 +81,7 @@ class UserController extends Controller
             $user->homenageados()->attach($homenageado);
         }
 
-        return redirect("/homenageados/{$homenageado->id}/curadoria");
+        return redirect("/homenageados/$homenageado->id");
     }
 
     public function showHomenageadosCurador($curador_codpes){

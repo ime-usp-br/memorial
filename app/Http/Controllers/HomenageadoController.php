@@ -22,10 +22,10 @@ class HomenageadoController extends Controller
     public function index(Request $request)
     {   
         if(isset($request->search)){
-            $homenageados = Homenageado::where('nome','LIKE',"%{$request->search}%")->paginate(10);
+            $homenageados = Homenageado::where('nome','LIKE',"%{$request->search}%")->orderBy('nome','asc')->paginate(10);
         }
         else{
-            $homenageados = Homenageado::paginate(10);
+            $homenageados = Homenageado::orderBy('nome','asc')->paginate(10);
             
         } 
         return view('homenageados.index', [
