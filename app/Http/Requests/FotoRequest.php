@@ -24,8 +24,8 @@ class FotoRequest extends FormRequest
     public function rules()
     {   
         return [
-            'foto' => 'required|image',
-            'descricao' => 'nullable',
+            'fotos' => 'required',
+            'fotos.*' => 'image',
             'homenageado_id' => 'required|exists:App\Models\Homenageado,id'
         ];
     }
@@ -33,8 +33,8 @@ class FotoRequest extends FormRequest
     public function messages()
     {
         return [
-            'foto.required' => 'A foto é obrigatória.',
-            'foto.image' => 'A foto precisa ser uma imagem.',
+            'fotos.required' => 'A foto é obrigatória.',
+            'fotos.*.image' => 'O arquivo precisa ser uma foto.'
         ];
     }
 }
