@@ -113,6 +113,7 @@
                   <?php 
                         $homenageado_id = $homenageado->id;
                         $foto = new App\Models\Foto();
+                        $edit = false;
                   ?>
 
                   <div class="modal-body">

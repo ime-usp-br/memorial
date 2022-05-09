@@ -25,6 +25,7 @@ Route::resource('/homenageados',HomenageadoController::class);
 Route::get('/homenageados/delete/{homenageado_id}', [HomenageadoController::class, 'delete']);
 Route::resource('/fotos', FotoController::class);
 Route::get('/fotos/create/{homenageado_id}', [FotoController::class, 'create']);
+Route::post('/fotos/descricao', [FotoController::class, 'atualizaDescricao']);
 Route::resource('/mensagems', MensagemController::class);
 Route::get('/mensagems/create/{homenageado_id}', [MensagemController::class, 'create']);
 Route::get('/mensagems/delete/{mensagem_id}', [MensagemController::class, 'delete']);

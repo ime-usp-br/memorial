@@ -6,6 +6,7 @@ use App\Http\Requests\FotoRequest;
 use App\Models\Foto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class FotoController extends Controller
 {
@@ -46,10 +47,16 @@ class FotoController extends Controller
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$request->homenageado_id])) return redirect("/homenageados/$request->homenageado_id");
 
         $validated = $request->validated();
-        $validated['caminho'] = $request->file('foto')->store('.');
         $validated['foto_perfil'] = false;
-        $foto = Foto::create($validated);
-        $request->session()->flash('alert-info','Foto enviada com sucesso.');
+        $countFotos = 0;
+        foreach($request['fotos'] as $foto){
+            $countFotos++;
+            $validated['caminho'] = $foto->store('.');
+            $foto = Foto::create($validated);
+        }
+        if($countFotos > 1) $request->session()->flash('alert-info','Fotos enviadas com sucesso.');
+        else $request->session()->flash('alert-info','Foto enviada com sucesso.');
+        
         return redirect("/homenageados/$foto->homenageado_id");
     }
 
@@ -91,7 +98,8 @@ class FotoController extends Controller
         if(!Gate::allows('administrador') && !Gate::allows('curador', [$foto->homenageado_id])) return redirect("/homenageados/$foto->homenageado_id");
 
         $validated = $request->validated();
-        $validated['caminho'] = $request->file('foto')->store('.');
+        $novaFoto = $request['fotos'][0];
+        $validated['caminho'] = $novaFoto->store('.');
         $validated['foto_perfil'] = false;
         
         //deletar a foto antiga 
@@ -117,5 +125,15 @@ class FotoController extends Controller
         $foto->delete();
         request()->session()->flash('alert-info','Foto excluída com sucesso.');
         return redirect("/homenageados/$homenageado_id");
+    }
+
+    public function atualizaDescricao(Request $request){
+        $foto = Foto::find($request->foto_id);
+        if(!Gate::allows('administrador') && !Gate::allows('curador', [$foto->homenageado_id])) return redirect("/homenageados/$foto->homenageado_id");
+
+        $foto->descricao = $request['descricao'];
+        $foto->save();
+        request()->session()->flash('alert-info','Descrição editada com sucesso.');
+        return redirect("/homenageados/$foto->homenageado_id");
     }
 }
