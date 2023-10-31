@@ -13,6 +13,7 @@ use \Uspdev\SenhaunicaSocialite\Traits\HasSenhaunica;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
