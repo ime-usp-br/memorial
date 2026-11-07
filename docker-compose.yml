@@ -1,0 +1,196 @@
+# =============================================================================
+# Memorial — Docker Compose (Portainer / produção)
+# =============================================================================
+# ARQUITETURA:
+#   nginx  -> único ponto de entrada; entra na rede externa "web".
+#   app    -> php-fpm; só o nginx fala com ele na rede interna.
+#   mysql  -> banco local do stack; não publicado no host.
+#
+# PORTAS:
+#   NENHUM serviço publica porta no host (não existe "ports:").
+#   No Nginx Proxy Manager crie um Proxy Host apontando para:
+#       Host: memorial-nginx
+#       Porta: 80
+#   A rede "web" precisa existir no host:
+#       docker network create web
+#
+# VARIÁVEIS:
+#   - Local/CLI: o docker compose lê automaticamente o .env da raiz.
+#   - Portainer: preencha a seção "Environment variables" do Stack.
+#   - APP_KEY: se ficar vazia, o entrypoint gera e persiste em
+#     storage/app/app_key. Em produção prefira definir no Portainer.
+#   - APP_URL: URL pública usada nos links, assets e callback da Senha Única.
+#   - SENHAUNICA_*: credenciais OAuth1 da Senha Única USP. Sem elas a área
+#     administrativa (/configs) fica inacessível, mas a geração pública
+#     continua funcionando.
+#
+# USO:
+#   docker compose up -d --build
+#   docker compose logs -f app
+# =============================================================================
+
+name: memorial
+
+x-app-environment: &app-environment
+    APP_NAME: "${APP_NAME:-Memorial}"
+    APP_ENV: "${APP_ENV:-production}"
+    APP_DEBUG: "${APP_DEBUG:-false}"
+    APP_KEY: "${APP_KEY:-}"
+    APP_URL: "${APP_URL:-http://memorial.ime.usp.br}"
+    ASSET_URL: "${ASSET_URL:-}"
+    FORCE_HTTPS: "${FORCE_HTTPS:-false}"
+    TZ: "${TZ:-America/Sao_Paulo}"
+    # Logs
+    LOG_CHANNEL: "${LOG_CHANNEL:-stack}"
+    LOG_DEPRECATIONS_CHANNEL: "${LOG_DEPRECATIONS_CHANNEL:-null}"
+    LOG_LEVEL: "${LOG_LEVEL:-warning}"
+    # Banco (interno do stack ou externo)
+    DB_CONNECTION: "${DB_CONNECTION:-mysql}"
+    DB_HOST: "${DB_HOST:-mysql}"
+    DB_PORT: "${DB_PORT:-3306}"
+    DB_DATABASE: "${DB_DATABASE:-memorial}"
+    DB_USERNAME: "${DB_USERNAME:-memorial}"
+    DB_PASSWORD: "${DB_PASSWORD:-memorial}"
+    # Cache/sessão/filas
+    BROADCAST_DRIVER: "${BROADCAST_DRIVER:-log}"
+    CACHE_DRIVER: "${CACHE_DRIVER:-file}"
+    FILESYSTEM_DRIVER: "${FILESYSTEM_DRIVER:-local}"
+    QUEUE_CONNECTION: "${QUEUE_CONNECTION:-sync}"
+    SESSION_DRIVER: "${SESSION_DRIVER:-file}"
+    SESSION_LIFETIME: "${SESSION_LIFETIME:-120}"
+    SESSION_SECURE_COOKIE: "${SESSION_SECURE_COOKIE:-false}"
+    # E-mail (padrão "log" para não falhar sem SMTP configurado)
+    MAIL_MAILER: "${MAIL_MAILER:-log}"
+    MAIL_HOST: "${MAIL_HOST:-smtp.ime.usp.br}"
+    MAIL_PORT: "${MAIL_PORT:-587}"
+    MAIL_USERNAME: "${MAIL_USERNAME:-}"
+    MAIL_PASSWORD: "${MAIL_PASSWORD:-}"
+    MAIL_ENCRYPTION: "${MAIL_ENCRYPTION:-tls}"
+    MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS:-noreply@ime.usp.br}"
+    MAIL_FROM_NAME: "${MAIL_FROM_NAME:-Memorial}"
+    # Senha Única USP
+    SENHAUNICA_KEY: "${SENHAUNICA_KEY:-}"
+    SENHAUNICA_SECRET: "${SENHAUNICA_SECRET:-}"
+    SENHAUNICA_CALLBACK_ID: "${SENHAUNICA_CALLBACK_ID:-}"
+    SENHAUNICA_DEV: "${SENHAUNICA_DEV:-no}"
+    SENHAUNICA_ADMINS: "${SENHAUNICA_ADMINS:-}"
+    SENHAUNICA_GERENTES: "${SENHAUNICA_GERENTES:-}"
+    SENHAUNICA_USERS: "${SENHAUNICA_USERS:-}"
+    SENHAUNICA_DROP_PERMISSIONS: "${SENHAUNICA_DROP_PERMISSIONS:-false}"
+    SENHAUNICA_DEBUG: "${SENHAUNICA_DEBUG:-false}"
+    # Tema USP
+    USP_THEME_SKIN: "${USP_THEME_SKIN:-uspdev}"
+    # Flags do entrypoint
+    RUN_MIGRATIONS: "${RUN_MIGRATIONS:-true}"
+    RUN_SEEDERS: "${RUN_SEEDERS:-false}"
+    COMPOSER_ALLOW_SUPERUSER: "1"
+
+services:
+    # =========================================================================
+    # PHP-FPM (aplicação)
+    # =========================================================================
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                # UID/GID do dono do projeto no host (ajuste no Portainer se o
+                # servidor usar outro valor; neste host é 1001).
+                uid: "${UID:-1001}"
+                gid: "${GID:-1001}"
+        image: "memorial:${APP_VERSION:-latest}"
+        container_name: memorial-app
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - .:/var/www
+            - ./storage:/var/www/storage
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini:ro
+            - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+        entrypoint: ["sh", "./docker/entrypoint.sh"]
+        environment:
+            <<: *app-environment
+            CONTAINER_ROLE: app
+        networks:
+            - memorial
+        #depends_on:
+        #    mysql:
+        #        condition: service_healthy
+
+        # Mapeia o host.docker.internal para o IP da máquina hospedeira
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+
+    # =========================================================================
+    # Nginx — ponto de entrada (NPM -> memorial-nginx:80)
+    # =========================================================================
+    nginx:
+        image: nginx:1.31.8-alpine
+        container_name: memorial-nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"    # <-- Adicione esta linha
+        expose:
+            - "80"
+        volumes:
+            - .:/var/www:ro
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+        networks:
+            - memorial
+            - web
+        depends_on:
+            - app
+        healthcheck:
+            test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/health"]
+            interval: 30s
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+
+    # =========================================================================
+    # MySQL (interno; não publicado no host)
+    # =========================================================================
+#    mysql:
+#        image: mysql:8.0
+#        container_name: memorial-mysql
+#        restart: unless-stopped
+#        environment:
+#            MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-memorial}"
+#            MYSQL_DATABASE: "${DB_DATABASE:-memorial}"
+#            MYSQL_USER: "${DB_USERNAME:-memorial}"
+#            MYSQL_PASSWORD: "${DB_PASSWORD:-memorial}"
+#        command:
+#            - --character-set-server=utf8mb4
+#            - --collation-server=utf8mb4_unicode_ci
+#            - --default-authentication-plugin=mysql_native_password
+#        volumes:
+#            - mysql-data:/var/lib/mysql
+#        networks:
+#            - memorial
+#        healthcheck:
+#            test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+#            interval: 10s
+#            timeout: 5s
+#            retries: 10
+#            start_period: 30s
+
+# =============================================================================
+# Redes
+# =============================================================================
+# "memorial": interna do stack (php-fpm <-> nginx <-> mysql).
+# "web":                externa e pré-existente, compartilhada com o Nginx
+#                       Proxy Manager e o Portainer. Apenas o nginx participa.
+# =============================================================================
+networks:
+    memorial:
+        driver: bridge
+    web:
+        external: true
+        name: web
+
+volumes:
+    mysql-data:
+        name: memorial-mysql-data
+
+
