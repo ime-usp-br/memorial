@@ -1,27 +1,40 @@
 {
-    "name": "laravel/laravel",
+    "name": "ime-usp-br/memorial",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Memorial IME-USP",
+    "authors": [
+        {
+            "name": "Marcelo Modesto Costa",
+            "email": "marcelom@usp.br",
+            "homepage": "https://github.com/marcelomodesto"
+        }
+    ],
+    "keywords": [
+        "ime-usp",
+        "memorial"
+    ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
-        "coreui/coreui": "3.2.0",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
+        "php": "^8.3",
+        "barryvdh/laravel-dompdf": "^3.1",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.40",
-        "laravel/tinker": "^2.5",
-        "uspdev/laravel-usp-validators": "^1.0",
-        "uspdev/senhaunica-socialite": "^3.0"
+        "laravel/framework": "^13.0",
+        "laravel/sanctum": "^4.3",
+        "laravel/tinker": "^3.0",
+        "phpmailer/phpmailer": "^6.8",
+        "spatie/commonmark-highlighter": "^3.0",
+        "uspdev/laravel-tools": "^1.2",
+        "uspdev/senhaunica-socialite": "^4.5",
+        "ybr-nx/laravel-mariadb": "^1.0"
     },
     "require-dev": {
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "laravel/dusk": "^8.7",
         "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "lucascudo/laravel-pt-br-localization": "^1.2",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^8.0",
+        "phpunit/phpunit": "^13.0"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +51,12 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --provider=\"Uspdev\\UspTheme\\ServiceProvider\" --tag=assets --force"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || php artisan vendor:publish --tag=laravel-pt-br-localization --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
